@@ -2334,6 +2334,10 @@ function _finishBulkLoad(){
   }
 
   window._finishMs = performance.now()-_tFin;
+  // V10.2 perf: 유휴 시간에 기록실/수비 캐시 사전 워밍 — 기록실 첫 진입도 즉시 열리게
+  const _warm = () => { try{ _computeDefenseData(); _computeRecordsData(); }catch(e){} };
+  if(typeof requestIdleCallback === 'function') requestIdleCallback(_warm, {timeout: 4000});
+  else setTimeout(_warm, 1200);
 }
 
 // V10.0: 간단한 토스트 알림 (의존성 없음)
@@ -11324,7 +11328,7 @@ const CHANGELOG = [
       {icon:'☁️', text:'⭐⭐⭐ <b>(NEW) GitHub 서버 CSV 자동 로드</b> — GitHub 저장소 <code>data/league/시즌명/</code> 등 폴더에 CSV를 넣으면 GitHub Actions가 manifest를 자동 생성하고, 사이트 접속 시 <b>전체 경기를 자동으로 불러옵니다</b>. 더 이상 매번 파일 업로드 불필요. 병렬 다운로드(동시 8) + 번들 묶음 파일로 로딩 속도 최적화'},
       {icon:'📂', text:'⭐⭐⭐ <b>(NEW) 카테고리/그룹 스코프 시스템</b> — 리그전/일반 스크림/독립팀/이벤트리그/기타 카테고리와 시즌 그룹별로 데이터를 관리. 대시보드에서 카테고리·그룹·기간(최근 N일) 필터로 원하는 범위만 활성화해서 분석 가능'},
       {icon:'📊', text:'⭐⭐ <b>경기 목록 메타 표시</b> — 각 경기에 출처(서버/로컬)·카테고리·그룹 배지 표시. 서버 경기와 직접 올린 경기를 한눈에 구분'},
-      {icon:'⚡', text:'⭐⭐⭐ <b>성능 최적화 — 대용량(370경기+)에서도 쾌적하게</b> — 실측(372경기/71,322투구): 전체 로드 17.2초→7초, 기록실 첫 진입 2.3초→1.1초, 홈 화면 갱신(토글) 5초→1초. 핵심 수술: 선수 팀 판정 풀스캔→캐시(54곳 가속), OAA enriched의 Object.create 딕셔너리모드 제거, 기록실·이닝점수·통계카드 단일패스화, 홈 로스터 풀스캔→인덱스, 타임라인 O(n²) 제거+도트 샘플링, 프로필 사진 lazy. 모든 수치 결과 변경 전과 동일 검증 완료'},
+      {icon:'⚡', text:'⭐⭐⭐ <b>성능 최적화 — 대용량(370경기+)에서도 쾌적하게</b> — 실측(372경기/71,322투구): 전체 로드 17.2초→7초, 기록실 첫 진입 2.3초→1.1초, 홈 화면 갱신(토글) 5초→1초. 핵심 수술: 선수 팀 판정 풀스캔→캐시(54곳 가속), OAA enriched의 Object.create 딕셔너리모드 제거, 기록실·이닝점수·통계카드 단일패스화, 홈 로스터 풀스캔→인덱스, 타임라인 O(n²) 제거+도트 샘플링, 프로필 사진 lazy. <b>화면 멈춤(프리즈) 해소</b>: 로드 직후 유휴 시간에 기록실·수비 캐시를 미리 계산해두고, 캐시가 없을 때도 화면 전환은 즉시(블로킹 0ms) + 백그라운드 집계 후 표시. 모든 수치 결과 변경 전과 동일 검증 완료'},
       {icon:'🧹', text:'⭐⭐ <b>코드 정리 + 홈 UI 컴팩트 재설계</b> — 중복 정의 함수 84개 제거(28,500→27,500줄). 데이터 컨트롤 센터를 ☁ 데이터 범위 슬림 바로 재설계: 거대 KPI 카드 5개 → 헤더 한 줄 요약, 그룹별 한 줄 행(체크+미니바+카운트) + 정규/포스트시즌 인라인 칩. 경기 카드의 중복 메타 표기 제거, 그룹 미니 배지로 통일'},
       {icon:'🔧', text:'⭐ <b>인프라</b> — GitHub Actions 워크플로(data 폴더 변경 시 manifest 자동 갱신), 번들 생성 스크립트, GitHub Pages 배포 구조'},
     ]
@@ -21795,6 +21799,20 @@ function renderRecordsPage(){
     out.innerHTML = '<div class="container" style="padding:40px;text-align:center;color:var(--muted)">데이터를 먼저 업로드해주세요.</div>';
     return;
   }
+  // V10.2 perf: 캐시 미스(첫 진입)면 화면 전환만 즉시 하고 무거운 계산은 다음 틱으로 —
+  // 진입 순간 마우스/화면이 멈추는 메인 스레드 블로킹 제거
+  const _ck = `${GAMES.length}_${G.length}`;
+  if(!(window._recordsCache && window._recordsCache.key === _ck && window._recordsCache.batters)){
+    out.innerHTML = '<div class="container" style="padding:60px;text-align:center;color:var(--muted)"><div style="font-size:28px;margin-bottom:12px">📚</div>기록 집계 중...<div style="font-size:11px;margin-top:8px;font-family:var(--mono)">선수별 시즌 스탯 · 세이버메트릭스 · 수비 OAA</div></div>';
+    setTimeout(() => {
+      _computeDefenseData();       // 1단계: 수비 (가장 무거움)
+      setTimeout(() => {
+        _computeRecordsData();      // 2단계: 기록 집계
+        renderRecordsPage();        // 3단계: 캐시 히트 상태로 재진입 → 즉시 렌더
+      }, 16);
+    }, 16);
+    return;
+  }
   const st = window._recordsState;
   const data = _computeRecordsData();
   const isB = st.tab === 'batter';
@@ -27542,6 +27560,10 @@ function toggleGame(gid){
         console.error('active refresh failed',e);
       }finally{
         setPending(false);
+        // V10.2 perf: 활성 변경으로 무효화된 기록실/수비 캐시를 유휴 시간에 재워밍
+        const _warm=()=>{ if(mySeq!==refreshSeq) return; try{ _computeDefenseData(); _computeRecordsData(); }catch(e){} };
+        if(typeof requestIdleCallback==='function') requestIdleCallback(_warm,{timeout:5000});
+        else setTimeout(_warm,1500);
       }
     });
   }

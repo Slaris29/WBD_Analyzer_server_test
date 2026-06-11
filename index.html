@@ -21697,7 +21697,8 @@ function _computeRecordsData(){
       G: G_, PA, AB, H: hits, h1B, h2B, h3B, HR: hrs, TB, BB, HBP, K,
       avg, obp, slg, ops: obp+slg, iso: slg-avg,
       babip: babipDen>0 ? (hits-hrs)/babipDen : 0,
-      kPct: PA>0 ? K/PA*100 : 0, bbPct: PA>0 ? BB/PA*100 : 0, avgEV
+      kPct: PA>0 ? K/PA*100 : 0, bbPct: PA>0 ? BB/PA*100 : 0,
+      hrPct: PA>0 ? hrs/PA*100 : 0, avgEV
     };
   }).filter(Boolean);
   
@@ -21738,6 +21739,7 @@ function _computeRecordsData(){
       G: G_, n: all.length, BF, IP, H: hits, HR: hrs, BB, HBP, K,
       oAvg, oObp, oSlg, oOps: oObp+oSlg,
       kPct: BF>0 ? K/BF*100 : 0, bbPct: BF>0 ? BB/BF*100 : 0,
+      hrPct: BF>0 ? hrs/BF*100 : 0,
       whiffPct: swings>0 ? whiffs/swings*100 : 0,
       k9: IP>0 ? K/IP*9 : 0
     };
@@ -21914,6 +21916,7 @@ function renderRecordsPage(){
     {k:'babip', l:'BABIP', fmt:f3, hl:'#66ccdd'},
     {k:'kPct', l:'K%', fmt:f1},
     {k:'bbPct', l:'BB%', fmt:f1},
+    {k:'hrPct', l:'HR%', fmt:f1, hl:'#ffd700', t:'홈런/타석 — 타석당 홈런 비율'},
     {k:'avgEV', l:'평균EV', fmt:f1}
   ];
   const pitCols = [
@@ -21941,6 +21944,7 @@ function renderRecordsPage(){
     {k:'war144', l:'WAR144', fmt:v=>v==null?'-':(v>=0?'+':'')+v.toFixed(1), hl:'#ff4488', t:'KBO 시즌(144경기) 길이 환산 pWAR — 순위 불변, 스케일만 KBO 감각'},
     {k:'kPct', l:'K%', fmt:f1},
     {k:'bbPct', l:'BB%', fmt:f1},
+    {k:'hrPct', l:'HR%', fmt:f1, hl:'#ffd700', t:'피홈런/상대타자 — 타자당 피홈런 비율'},
     {k:'whiffPct', l:'헛스윙%', fmt:f1, hl:'#ff4560'},
     {k:'k9', l:'K/9', fmt:f1, t:'9이닝당 탈삼진 (추정)'}
   ];

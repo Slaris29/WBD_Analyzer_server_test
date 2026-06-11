@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "",
+  "generatedAt": "2026-06-11T08:54:23.084Z",
   "categoryOrder": [
     "league",
     "scrim",
@@ -15,5 +15,394 @@
     "event": "이벤트리그",
     "etc": "기타"
   },
-  "groups": []
+  "groups": [
+    {
+      "id": "league/FW_Season",
+      "name": "FW Season",
+      "category": "league",
+      "categoryName": "리그전",
+      "description": "리그전",
+      "default": true,
+      "files": [
+        {
+          "name": "league_2025_11_14_ishikawa_fighting_folks_vs_hoshizora_milkyways_pXPZ9vyHsh",
+          "path": "data/league/FW_Season/league_2025_11_14_ishikawa_fighting_folks_vs_hoshizora_milkyways_pXPZ9vyHsh.txt",
+          "size": 53301,
+          "updatedAt": "2026-06-11T08:54:18.110Z"
+        },
+        {
+          "name": "league_2025_11_15_black_eagles_vs_blue_sarks_Lnm3BRjja0",
+          "path": "data/league/FW_Season/league_2025_11_15_black_eagles_vs_blue_sarks_Lnm3BRjja0.txt",
+          "size": 73170,
+          "updatedAt": "2026-06-11T08:54:18.111Z"
+        },
+        {
+          "name": "league_2025_11_16_pretty_peaches_vs_purple_neosn_apex_3Kcb8uIXpH",
+          "path": "data/league/FW_Season/league_2025_11_16_pretty_peaches_vs_purple_neosn_apex_3Kcb8uIXpH.txt",
+          "size": 61260,
+          "updatedAt": "2026-06-11T08:54:18.111Z"
+        },
+        {
+          "name": "league_2025_11_21_pretty_peaches_vs_black_eagles_zklAJbSDWD",
+          "path": "data/league/FW_Season/league_2025_11_21_pretty_peaches_vs_black_eagles_zklAJbSDWD.txt",
+          "size": 90170,
+          "updatedAt": "2026-06-11T08:54:18.111Z"
+        },
+        {
+          "name": "league_2025_11_22_hoshizora_milkyways_vs_shiroko_bluebirds_EIpB8RW8KQ",
+          "path": "data/league/FW_Season/league_2025_11_22_hoshizora_milkyways_vs_shiroko_bluebirds_EIpB8RW8KQ.txt",
+          "size": 78033,
+          "updatedAt": "2026-06-11T08:54:18.111Z"
+        },
+        {
+          "name": "league_2025_11_23_purple_neosn_apex_vs_ishikawa_fighting_folks_F7xB3YKiDs",
+          "path": "data/league/FW_Season/league_2025_11_23_purple_neosn_apex_vs_ishikawa_fighting_folks_F7xB3YKiDs.txt",
+          "size": 74203,
+          "updatedAt": "2026-06-11T08:54:18.111Z"
+        },
+        {
+          "name": "league_2025_11_28_ishikawa_fighting_folks_vs_black_eagles_sDpUamLKUH",
+          "path": "data/league/FW_Season/league_2025_11_28_ishikawa_fighting_folks_vs_black_eagles_sDpUamLKUH.txt",
+          "size": 101702,
+          "updatedAt": "2026-06-11T08:54:18.112Z"
+        },
+        {
+          "name": "league_2025_11_29_hoshizora_milkyways_vs_purple_neosn_apex_3hYO3RVrvg",
+          "path": "data/league/FW_Season/league_2025_11_29_hoshizora_milkyways_vs_purple_neosn_apex_3hYO3RVrvg.txt",
+          "size": 84016,
+          "updatedAt": "2026-06-11T08:54:18.112Z"
+        },
+        {
+          "name": "league_2025_11_30_shiroko_bluebirds_vs_blue_sarks_wBvqH0tNjj",
+          "path": "data/league/FW_Season/league_2025_11_30_shiroko_bluebirds_vs_blue_sarks_wBvqH0tNjj.txt",
+          "size": 98377,
+          "updatedAt": "2026-06-11T08:54:18.113Z"
+        },
+        {
+          "name": "league_2025_12_05_purple_neosn_apex_vs_shiroko_bluebirds_qq1ooRkccX",
+          "path": "data/league/FW_Season/league_2025_12_05_purple_neosn_apex_vs_shiroko_bluebirds_qq1ooRkccX.txt",
+          "size": 88325,
+          "updatedAt": "2026-06-11T08:54:18.113Z"
+        },
+        {
+          "name": "league_2025_12_06_blue_sarks_vs_pretty_peaches_H6rYQe1B2Z",
+          "path": "data/league/FW_Season/league_2025_12_06_blue_sarks_vs_pretty_peaches_H6rYQe1B2Z.txt",
+          "size": 91533,
+          "updatedAt": "2026-06-11T08:54:18.114Z"
+        },
+        {
+          "name": "league_2025_12_07_black_eagles_vs_hoshizora_milkyways_dmWKgSH8jx",
+          "path": "data/league/FW_Season/league_2025_12_07_black_eagles_vs_hoshizora_milkyways_dmWKgSH8jx.txt",
+          "size": 104968,
+          "updatedAt": "2026-06-11T08:54:18.114Z"
+        },
+        {
+          "name": "league_2025_12_12_shiroko_bluebirds_vs_pretty_peaches_NA84wCke9I",
+          "path": "data/league/FW_Season/league_2025_12_12_shiroko_bluebirds_vs_pretty_peaches_NA84wCke9I.txt",
+          "size": 88874,
+          "updatedAt": "2026-06-11T08:54:18.115Z"
+        },
+        {
+          "name": "league_2025_12_13_purple_neosn_apex_vs_black_eagles_G7bqil47G8",
+          "path": "data/league/FW_Season/league_2025_12_13_purple_neosn_apex_vs_black_eagles_G7bqil47G8.txt",
+          "size": 71098,
+          "updatedAt": "2026-06-11T08:54:18.115Z"
+        },
+        {
+          "name": "league_2025_12_14_blue_sarks_vs_ishikawa_fighting_folks_0wFqYZGTIv",
+          "path": "data/league/FW_Season/league_2025_12_14_blue_sarks_vs_ishikawa_fighting_folks_0wFqYZGTIv.txt",
+          "size": 98524,
+          "updatedAt": "2026-06-11T08:54:18.116Z"
+        },
+        {
+          "name": "league_2025_12_19_hoshizora_milkyways_vs_blue_sarks_fIPZOhwYrR",
+          "path": "data/league/FW_Season/league_2025_12_19_hoshizora_milkyways_vs_blue_sarks_fIPZOhwYrR.txt",
+          "size": 82513,
+          "updatedAt": "2026-06-11T08:54:18.116Z"
+        },
+        {
+          "name": "league_2025_12_20_ishikawa_fighting_folks_vs_pretty_peaches_lE6n6LOihl",
+          "path": "data/league/FW_Season/league_2025_12_20_ishikawa_fighting_folks_vs_pretty_peaches_lE6n6LOihl.txt",
+          "size": 94063,
+          "updatedAt": "2026-06-11T08:54:18.116Z"
+        },
+        {
+          "name": "league_2025_12_21_black_eagles_vs_shiroko_bluebirds_EKSAOtEc5C",
+          "path": "data/league/FW_Season/league_2025_12_21_black_eagles_vs_shiroko_bluebirds_EKSAOtEc5C.txt",
+          "size": 95500,
+          "updatedAt": "2026-06-11T08:54:18.117Z"
+        },
+        {
+          "name": "league_2025_12_26_blue_sarks_vs_purple_neosn_apex_IevETKlzB2",
+          "path": "data/league/FW_Season/league_2025_12_26_blue_sarks_vs_purple_neosn_apex_IevETKlzB2.txt",
+          "size": 91650,
+          "updatedAt": "2026-06-11T08:54:18.117Z"
+        },
+        {
+          "name": "league_2025_12_27_shiroko_bluebirds_vs_ishikawa_fighting_folks_6a19Zp7ZMD",
+          "path": "data/league/FW_Season/league_2025_12_27_shiroko_bluebirds_vs_ishikawa_fighting_folks_6a19Zp7ZMD.txt",
+          "size": 99478,
+          "updatedAt": "2026-06-11T08:54:18.118Z"
+        },
+        {
+          "name": "league_2025_12_28_pretty_peaches_vs_hoshizora_milkyways_b55GIbA5Ix",
+          "path": "data/league/FW_Season/league_2025_12_28_pretty_peaches_vs_hoshizora_milkyways_b55GIbA5Ix.txt",
+          "size": 103452,
+          "updatedAt": "2026-06-11T08:54:18.118Z"
+        },
+        {
+          "name": "league_2026_01_02_hoshizora_milkyways_vs_pretty_peaches_GKh9v9gvnr",
+          "path": "data/league/FW_Season/league_2026_01_02_hoshizora_milkyways_vs_pretty_peaches_GKh9v9gvnr.txt",
+          "size": 101962,
+          "updatedAt": "2026-06-11T08:54:18.119Z"
+        },
+        {
+          "name": "league_2026_01_02_ishikawa_fighting_folks_vs_blue_sarks_cSOQm0RPv8",
+          "path": "data/league/FW_Season/league_2026_01_02_ishikawa_fighting_folks_vs_blue_sarks_cSOQm0RPv8.txt",
+          "size": 129970,
+          "updatedAt": "2026-06-11T08:54:18.119Z"
+        },
+        {
+          "name": "league_2026_01_03_black_eagles_vs_purple_neosn_apex_ADkbifeIg2",
+          "path": "data/league/FW_Season/league_2026_01_03_black_eagles_vs_purple_neosn_apex_ADkbifeIg2.txt",
+          "size": 109348,
+          "updatedAt": "2026-06-11T08:54:18.120Z"
+        },
+        {
+          "name": "league_2026_01_03_blue_sarks_vs_hoshizora_milkyways_s3Nhrzreff",
+          "path": "data/league/FW_Season/league_2026_01_03_blue_sarks_vs_hoshizora_milkyways_s3Nhrzreff.txt",
+          "size": 102984,
+          "updatedAt": "2026-06-11T08:54:18.121Z"
+        },
+        {
+          "name": "league_2026_01_04_black_eagles_vs_ishikawa_fighting_folks_ZqrNJGLb5T",
+          "path": "data/league/FW_Season/league_2026_01_04_black_eagles_vs_ishikawa_fighting_folks_ZqrNJGLb5T.txt",
+          "size": 104281,
+          "updatedAt": "2026-06-11T08:54:18.121Z"
+        },
+        {
+          "name": "league_2026_01_09_hoshizora_milkyways_vs_black_eagles_HpdReDED4t",
+          "path": "data/league/FW_Season/league_2026_01_09_hoshizora_milkyways_vs_black_eagles_HpdReDED4t.txt",
+          "size": 102710,
+          "updatedAt": "2026-06-11T08:54:18.122Z"
+        },
+        {
+          "name": "league_2026_01_09_shiroko_bluebirds_vs_purple_neosn_apex_1DeggvVBJf",
+          "path": "data/league/FW_Season/league_2026_01_09_shiroko_bluebirds_vs_purple_neosn_apex_1DeggvVBJf.txt",
+          "size": 119465,
+          "updatedAt": "2026-06-11T08:54:18.122Z"
+        },
+        {
+          "name": "league_2026_01_10_ishikawa_fighting_folks_vs_hoshizora_milkyways_v6DRbwV9YU",
+          "path": "data/league/FW_Season/league_2026_01_10_ishikawa_fighting_folks_vs_hoshizora_milkyways_v6DRbwV9YU.txt",
+          "size": 110674,
+          "updatedAt": "2026-06-11T08:54:18.123Z"
+        },
+        {
+          "name": "league_2026_01_10_pretty_peaches_vs_shiroko_bluebirds_S5GSsxk0xo",
+          "path": "data/league/FW_Season/league_2026_01_10_pretty_peaches_vs_shiroko_bluebirds_S5GSsxk0xo.txt",
+          "size": 99653,
+          "updatedAt": "2026-06-11T08:54:18.123Z"
+        },
+        {
+          "name": "league_2026_01_11_pretty_peaches_vs_ishikawa_fighting_folks_frqDC3dxAI",
+          "path": "data/league/FW_Season/league_2026_01_11_pretty_peaches_vs_ishikawa_fighting_folks_frqDC3dxAI.txt",
+          "size": 95359,
+          "updatedAt": "2026-06-11T08:54:18.124Z"
+        },
+        {
+          "name": "league_2026_01_16_blue_sharks_vs_black_eagles_Iu2FwBCNp8",
+          "path": "data/league/FW_Season/league_2026_01_16_blue_sharks_vs_black_eagles_Iu2FwBCNp8.txt",
+          "size": 105734,
+          "updatedAt": "2026-06-11T08:54:18.124Z"
+        },
+        {
+          "name": "league_2026_01_16_purple_neon_apex_vs_pretty_peaches_onUvz2NCrL",
+          "path": "data/league/FW_Season/league_2026_01_16_purple_neon_apex_vs_pretty_peaches_onUvz2NCrL.txt",
+          "size": 74895,
+          "updatedAt": "2026-06-11T08:54:18.124Z"
+        },
+        {
+          "name": "league_2026_01_17_blue_sharks_vs_shiroko_bluebirds_yFdvB9fMDB",
+          "path": "data/league/FW_Season/league_2026_01_17_blue_sharks_vs_shiroko_bluebirds_yFdvB9fMDB.txt",
+          "size": 105612,
+          "updatedAt": "2026-06-11T08:54:18.125Z"
+        },
+        {
+          "name": "league_2026_01_17_hoshizora_milkyways_vs_purple_neon_apex_3Hwi0uVcgj",
+          "path": "data/league/FW_Season/league_2026_01_17_hoshizora_milkyways_vs_purple_neon_apex_3Hwi0uVcgj.txt",
+          "size": 101283,
+          "updatedAt": "2026-06-11T08:54:18.125Z"
+        },
+        {
+          "name": "league_2026_01_18_shiroko_bluebirds_vs_hoshizora_milkyways_GZnYvDCDx7",
+          "path": "data/league/FW_Season/league_2026_01_18_shiroko_bluebirds_vs_hoshizora_milkyways_GZnYvDCDx7.txt",
+          "size": 110263,
+          "updatedAt": "2026-06-11T08:54:18.126Z"
+        },
+        {
+          "name": "league_2026_01_23_ishikawa_fighting_folks_vs_shiroko_bluebirds_UrkXJ0K4rB",
+          "path": "data/league/FW_Season/league_2026_01_23_ishikawa_fighting_folks_vs_shiroko_bluebirds_UrkXJ0K4rB.txt",
+          "size": 117607,
+          "updatedAt": "2026-06-11T08:54:18.127Z"
+        },
+        {
+          "name": "league_2026_01_23_pretty_peaches_vs_blue_sharks_vuVRZVyTgg",
+          "path": "data/league/FW_Season/league_2026_01_23_pretty_peaches_vs_blue_sharks_vuVRZVyTgg.txt",
+          "size": 106083,
+          "updatedAt": "2026-06-11T08:54:18.127Z"
+        },
+        {
+          "name": "league_2026_01_24_black_eagles_vs_pretty_peaches_HnLNqFGN2B",
+          "path": "data/league/FW_Season/league_2026_01_24_black_eagles_vs_pretty_peaches_HnLNqFGN2B.txt",
+          "size": 117123,
+          "updatedAt": "2026-06-11T08:54:18.128Z"
+        },
+        {
+          "name": "league_2026_01_24_purple_neon_apex_vs_ishikawa_fighting_folks_gTNMLkMDJo",
+          "path": "data/league/FW_Season/league_2026_01_24_purple_neon_apex_vs_ishikawa_fighting_folks_gTNMLkMDJo.txt",
+          "size": 107637,
+          "updatedAt": "2026-06-11T08:54:18.128Z"
+        },
+        {
+          "name": "league_2026_01_25_purple_neon_apex_vs_blue_sharks_cS4SwoUobH",
+          "path": "data/league/FW_Season/league_2026_01_25_purple_neon_apex_vs_blue_sharks_cS4SwoUobH.txt",
+          "size": 109582,
+          "updatedAt": "2026-06-11T08:54:18.129Z"
+        },
+        {
+          "name": "league_2026_01_25_shiroko_bluebirds_vs_black_eagles_jUoYN9cI7O",
+          "path": "data/league/FW_Season/league_2026_01_25_shiroko_bluebirds_vs_black_eagles_jUoYN9cI7O.txt",
+          "size": 90228,
+          "updatedAt": "2026-06-11T08:54:18.129Z"
+        },
+        {
+          "name": "league_2026_02_06_pretty_peaches_vs_purple_neon_apex_UMIukcS8Bu",
+          "path": "data/league/FW_Season/league_2026_02_06_pretty_peaches_vs_purple_neon_apex_UMIukcS8Bu.txt",
+          "size": 100183,
+          "updatedAt": "2026-06-11T08:54:18.130Z"
+        },
+        {
+          "name": "league_2026_02_06_shiroko_bluebirds_vs_ishikawa_fighting_folks_1lVQOu1Uef",
+          "path": "data/league/FW_Season/league_2026_02_06_shiroko_bluebirds_vs_ishikawa_fighting_folks_1lVQOu1Uef.txt",
+          "size": 87889,
+          "updatedAt": "2026-06-11T08:54:18.130Z"
+        },
+        {
+          "name": "league_2026_02_07_blue_sharks_vs_pretty_peaches_8vkO6d6gJ0",
+          "path": "data/league/FW_Season/league_2026_02_07_blue_sharks_vs_pretty_peaches_8vkO6d6gJ0.txt",
+          "size": 114368,
+          "updatedAt": "2026-06-11T08:54:18.131Z"
+        },
+        {
+          "name": "league_2026_02_07_hoshizora_milkyways_vs_shiroko_bluebirds_m4VFv0VIIa",
+          "path": "data/league/FW_Season/league_2026_02_07_hoshizora_milkyways_vs_shiroko_bluebirds_m4VFv0VIIa.txt",
+          "size": 109648,
+          "updatedAt": "2026-06-11T08:54:18.131Z"
+        },
+        {
+          "name": "league_2026_02_08_blue_sharks_vs_purple_neon_apex_45QiApAmvX",
+          "path": "data/league/FW_Season/league_2026_02_08_blue_sharks_vs_purple_neon_apex_45QiApAmvX.txt",
+          "size": 92464,
+          "updatedAt": "2026-06-11T08:54:18.132Z"
+        },
+        {
+          "name": "league_2026_02_13_hoshizora_milkyways_vs_ishikawa_fighting_folks_WP90p7wHkh",
+          "path": "data/league/FW_Season/league_2026_02_13_hoshizora_milkyways_vs_ishikawa_fighting_folks_WP90p7wHkh.txt",
+          "size": 115514,
+          "updatedAt": "2026-06-11T08:54:18.132Z"
+        },
+        {
+          "name": "league_2026_02_13_pretty_peaches_vs_black_eagles_7Puhn8g5K1",
+          "path": "data/league/FW_Season/league_2026_02_13_pretty_peaches_vs_black_eagles_7Puhn8g5K1.txt",
+          "size": 73320,
+          "updatedAt": "2026-06-11T08:54:18.132Z"
+        },
+        {
+          "name": "league_2026_02_14_black_eagles_vs_blue_sharks_eXMsj91VKh",
+          "path": "data/league/FW_Season/league_2026_02_14_black_eagles_vs_blue_sharks_eXMsj91VKh.txt",
+          "size": 103119,
+          "updatedAt": "2026-06-11T08:54:18.133Z"
+        },
+        {
+          "name": "league_2026_02_14_ishikawa_fighting_folks_vs_pretty_peaches_rjFtWihS4F",
+          "path": "data/league/FW_Season/league_2026_02_14_ishikawa_fighting_folks_vs_pretty_peaches_rjFtWihS4F.txt",
+          "size": 88787,
+          "updatedAt": "2026-06-11T08:54:18.133Z"
+        },
+        {
+          "name": "league_2026_02_15_shiroko_bluebirds_vs_blue_sharks_lyD3wr4Iab",
+          "path": "data/league/FW_Season/league_2026_02_15_shiroko_bluebirds_vs_blue_sharks_lyD3wr4Iab.txt",
+          "size": 89469,
+          "updatedAt": "2026-06-11T08:54:18.134Z"
+        },
+        {
+          "name": "league_2026_02_20_black_eagles_vs_shiroko_bluebirds_gcwRiNIu96",
+          "path": "data/league/FW_Season/league_2026_02_20_black_eagles_vs_shiroko_bluebirds_gcwRiNIu96.txt",
+          "size": 121836,
+          "updatedAt": "2026-06-11T08:54:18.135Z"
+        },
+        {
+          "name": "league_2026_02_20_ishikawa_fighting_folks_vs_purple_neon_apex_hKfGWkeNXf",
+          "path": "data/league/FW_Season/league_2026_02_20_ishikawa_fighting_folks_vs_purple_neon_apex_hKfGWkeNXf.txt",
+          "size": 108175,
+          "updatedAt": "2026-06-11T08:54:18.135Z"
+        },
+        {
+          "name": "league_2026_02_21_black_eagles_vs_hoshizora_milkyways_azTy4v8QFc",
+          "path": "data/league/FW_Season/league_2026_02_21_black_eagles_vs_hoshizora_milkyways_azTy4v8QFc.txt",
+          "size": 127,
+          "updatedAt": "2026-06-11T08:54:18.135Z"
+        },
+        {
+          "name": "league_2026_02_21_blue_sharks_vs_ishikawa_fighting_folks_f2V977H6lo",
+          "path": "data/league/FW_Season/league_2026_02_21_blue_sharks_vs_ishikawa_fighting_folks_f2V977H6lo.txt",
+          "size": 113367,
+          "updatedAt": "2026-06-11T08:54:18.136Z"
+        },
+        {
+          "name": "league_2026_02_22_purple_neon_apex_vs_hoshizora_milkyways_HlbzNEWwCo",
+          "path": "data/league/FW_Season/league_2026_02_22_purple_neon_apex_vs_hoshizora_milkyways_HlbzNEWwCo.txt",
+          "size": 106884,
+          "updatedAt": "2026-06-11T08:54:18.136Z"
+        },
+        {
+          "name": "league_2026_02_27_hoshizora_milkyways_vs_blue_sharks_P1s0sbeGuC",
+          "path": "data/league/FW_Season/league_2026_02_27_hoshizora_milkyways_vs_blue_sharks_P1s0sbeGuC.txt",
+          "size": 123395,
+          "updatedAt": "2026-06-11T08:54:18.137Z"
+        },
+        {
+          "name": "league_2026_02_27_purple_neon_apex_vs_shiroko_bluebirds_9BVPYgBSbV",
+          "path": "data/league/FW_Season/league_2026_02_27_purple_neon_apex_vs_shiroko_bluebirds_9BVPYgBSbV.txt",
+          "size": 121797,
+          "updatedAt": "2026-06-11T08:54:18.137Z"
+        },
+        {
+          "name": "league_2026_02_28_purple_neon_apex_vs_black_eagles_Q9fbQwuGcY",
+          "path": "data/league/FW_Season/league_2026_02_28_purple_neon_apex_vs_black_eagles_Q9fbQwuGcY.txt",
+          "size": 116251,
+          "updatedAt": "2026-06-11T08:54:18.138Z"
+        },
+        {
+          "name": "league_2026_02_28_shiroko_bluebirds_vs_pretty_peaches_PM0McTdIS9",
+          "path": "data/league/FW_Season/league_2026_02_28_shiroko_bluebirds_vs_pretty_peaches_PM0McTdIS9.txt",
+          "size": 98204,
+          "updatedAt": "2026-06-11T08:54:18.138Z"
+        },
+        {
+          "name": "league_2026_03_02_ishikawa_fighting_folks_vs_black_eagles_P2sM0m40Wa",
+          "path": "data/league/FW_Season/league_2026_03_02_ishikawa_fighting_folks_vs_black_eagles_P2sM0m40Wa.txt",
+          "size": 95394,
+          "updatedAt": "2026-06-11T08:54:18.139Z"
+        },
+        {
+          "name": "league_2026_03_02_pretty_peaches_vs_hoshizora_milkyways_EsFfLe5Faq",
+          "path": "data/league/FW_Season/league_2026_03_02_pretty_peaches_vs_hoshizora_milkyways_EsFfLe5Faq.txt",
+          "size": 105162,
+          "updatedAt": "2026-06-11T08:54:18.139Z"
+        }
+      ]
+    }
+  ]
 }

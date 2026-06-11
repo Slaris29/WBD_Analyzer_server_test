@@ -134,6 +134,15 @@ button{font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.8p
 /* ── PAGES ── */
 .page{display:none;padding:28px 48px;max-width:1440px;margin:0 auto;animation:fadeIn .25s ease}
 .page.active{display:block}
+.dc2-date{background:var(--bg2,#0d1422);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:2px 5px;font-size:10.5px;font-family:var(--mono);color-scheme:dark;width:118px}
+.dc2-range{display:inline-flex;align-items:center;gap:4px}
+select.dc2-mini{appearance:auto;background:transparent;color:var(--muted)}
+select.dc2-mini option{background:#141a28;color:#dfe7f2}
+/* V10.2 perf: 창 리사이즈/이동 렉 해소 — 화면 밖 카드의 레이아웃·페인트를 브라우저가 통째로 스킵.
+   카드 수백 장이 있어도 리플로우는 화면에 보이는 것만 계산 */
+#dashboard-grid>div{content-visibility:auto;contain-intrinsic-size:auto 120px}
+#cards-grid>div{content-visibility:auto;contain-intrinsic-size:auto 280px}
+.player-card{content-visibility:auto;contain-intrinsic-size:auto 90px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 /* ── SUBTABS ── */
 .subtab-bar{display:flex;gap:2px;margin-bottom:16px;border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:48px;background:var(--bg);z-index:50;padding:6px 0 0}
@@ -3026,13 +3035,18 @@ async function loadServerGroups(groups, appendExisting, opts){
       }
     }
 
+    // V10.2: 자동 전체 로드는 최근 3개월만 초기 활성 (대용량에서 첫 화면 가볍게, 전체는 기간 프리셋으로)
+    if(opts.auto && loaded>0 && !startedWithGames){
+      if(_setRecentDaysActive(90)) window._initialRecentApplied=true;
+    }
     _finishBulkLoad();
     const sec=((performance.now()-t0)/1000).toFixed(1);
     const msg=`성공 ${loaded}개${failed.length?`, 실패 ${failed.length}개`:''} · ${sec}초`;
     _serverSetStatus(`${opts.auto?'전체 서버 경기 자동 로드 완료':'서버 경기 로드 완료'}: ${msg}`, failed.length>0);
     _serverProgress(true,100,'완료',msg);
     setTimeout(()=>_serverProgress(false,0,'',''),1400);
-    _toast('☁ 서버 경기 불러오기 완료', msg+(failed.length?'\n'+failed.slice(0,3).join('\n'):''), failed.length?'#ffb833':'#88ccff', 5000);
+    _toast('☁ 서버 경기 불러오기 완료', msg+(window._initialRecentApplied?'\n📅 최근 3개월 경기만 활성화됨 — 데이터 범위에서 기간 변경 가능':'')+(failed.length?'\n'+failed.slice(0,3).join('\n'):''), failed.length?'#ffb833':'#88ccff', 5500);
+    window._initialRecentApplied=false;
     closeModal();
   }finally{
     window._serverLoading=false;
@@ -11363,6 +11377,7 @@ const CHANGELOG = [
       {icon:'☁️', text:'⭐⭐⭐ <b>(NEW) GitHub 서버 CSV 자동 로드</b> — GitHub 저장소 <code>data/league/시즌명/</code> 등 폴더에 CSV를 넣으면 GitHub Actions가 manifest를 자동 생성하고, 사이트 접속 시 <b>전체 경기를 자동으로 불러옵니다</b>. 더 이상 매번 파일 업로드 불필요. 병렬 다운로드(동시 8) + 번들 묶음 파일로 로딩 속도 최적화'},
       {icon:'📂', text:'⭐⭐⭐ <b>(NEW) 카테고리/그룹 스코프 시스템</b> — 리그전/일반 스크림/독립팀/이벤트리그/기타 카테고리와 시즌 그룹별로 데이터를 관리. 대시보드에서 카테고리·그룹·기간(최근 N일) 필터로 원하는 범위만 활성화해서 분석 가능'},
       {icon:'📊', text:'⭐⭐ <b>경기 목록 메타 표시</b> — 각 경기에 출처(서버/로컬)·카테고리·그룹 배지 표시. 서버 경기와 직접 올린 경기를 한눈에 구분'},
+      {icon:'📅', text:'⭐⭐ <b>날짜 구간 필터</b> — 데이터 범위 바에서 원하는 기간을 직접 지정해 분석: 시작일~종료일 달력 입력 + 기간 프리셋(최근 1/2/3/6개월·전체). 서버 자동 전체 로드 시에는 최근 3개월 경기만 초기 활성화되어 대용량에서도 첫 화면이 가볍습니다 (전체 보기는 📅 기간 ▾ → 전체 기간)'},
       {icon:'⚡', text:'⭐⭐⭐ <b>성능 최적화 — 대용량(370경기+)에서도 쾌적하게</b> — 실측(372경기/71,322투구): 전체 로드 17.2초→7초, 기록실 첫 진입 2.3초→1.1초, 홈 화면 갱신(토글) 5초→1초. 핵심 수술: 선수 팀 판정 풀스캔→캐시(54곳 가속), OAA enriched의 Object.create 딕셔너리모드 제거, 기록실·이닝점수·통계카드 단일패스화, 홈 로스터 풀스캔→인덱스, 타임라인 O(n²) 제거+도트 샘플링, 프로필 사진 lazy. <b>화면 멈춤(프리즈) 원천 차단</b>: ① 앱 전역 63곳의 선수별 전체 DB 풀스캔(리더보드·어워드·카드·구종 등)을 인덱스 캐시로 일괄 교체 ② 구종 분석 1패스 분류+메모이즈 ③ 모든 페이지 전환에 비동기 게이트 — 클릭 반응은 즉시(10ms 미만), 무거운 렌더는 다음 프레임에 "불러오는 중" 배지와 함께 처리 ④ 로드 직후 유휴 시간에 기록실·수비·리더보드·구종 캐시 사전 워밍. 모든 수치 결과 변경 전과 동일 검증 완료'},
       {icon:'🧹', text:'⭐⭐ <b>코드 정리 + 홈 UI 컴팩트 재설계</b> — 중복 정의 함수 84개 제거(28,500→27,500줄). 데이터 컨트롤 센터를 ☁ 데이터 범위 슬림 바로 재설계: 거대 KPI 카드 5개 → 헤더 한 줄 요약, 그룹별 한 줄 행(체크+미니바+카운트) + 정규/포스트시즌 인라인 칩. 경기 카드의 중복 메타 표기 제거, 그룹 미니 배지로 통일'},
       {icon:'🔧', text:'⭐ <b>인프라</b> — GitHub Actions 워크플로(data 폴더 변경 시 manifest 자동 갱신), 번들 생성 스크립트, GitHub Pages 배포 구조'},
@@ -26895,13 +26910,40 @@ function activateMetaScope(category, groupId, on){
 function activateOnlyMetaScope(category, groupId){
   _applyActiveScope(g=>(!category||(g.category||'local')===category)&&(!groupId||(g.groupId||'local')===groupId), 'only');
 }
-function activateRecentDays(days){
+// V10.2: 활성만 조정 (렌더 없음) — 자동 로드 초기 활성화에서도 재사용
+function _setRecentDaysActive(days){
   const dates=GAMES.map(_getGameDateValue).filter(Boolean);
-  if(!dates.length){_toast('날짜 정보 없음','파일명에서 날짜를 찾지 못했어요.','#ffb833',3000);return;}
+  if(!dates.length) return false;
   const max=Math.max(...dates), cut=max-days*24*3600*1000;
   activeGameIds.clear();
   GAMES.forEach(g=>{const t=_getGameDateValue(g); if(t&&t>=cut)activeGameIds.add(g.id);});
+  return true;
+}
+function activateRecentDays(days){
+  if(!_setRecentDaysActive(days)){_toast('날짜 정보 없음','파일명에서 날짜를 찾지 못했어요.','#ffb833',3000);return;}
+  _toast('📅 기간 적용', `최근 ${days>=30&&days%30===0?(days/30)+'개월':days+'일'} 경기만 활성화했어요.`, '#88ccff', 2600);
   _runAfterActiveChange();
+}
+// V10.2: 날짜 구간 직접 지정 (yyyy-mm-dd ~ yyyy-mm-dd)
+function activateDateRange(fromStr, toStr){
+  fromStr=fromStr||(document.getElementById('dc2-date-from')||{}).value;
+  toStr=toStr||(document.getElementById('dc2-date-to')||{}).value;
+  if(!fromStr && !toStr){_toast('구간 미지정','시작일 또는 종료일을 입력해주세요.','#ffb833',2600);return;}
+  const from=fromStr?new Date(fromStr+'T00:00:00').getTime():-Infinity;
+  const to=toStr?new Date(toStr+'T23:59:59').getTime():Infinity;
+  if(from>to){_toast('구간 오류','시작일이 종료일보다 늦어요.','#ffb833',2600);return;}
+  let n=0;
+  activeGameIds.clear();
+  GAMES.forEach(g=>{const t=_getGameDateValue(g); if(t!=null&&t>=from&&t<=to){activeGameIds.add(g.id);n++;}});
+  _toast('📅 구간 적용', `${fromStr||'처음'} ~ ${toStr||'끝'} · ${n}경기 활성화`, n?'#88ccff':'#ffb833', 2800);
+  _runAfterActiveChange();
+}
+// 프리셋 셀렉트 핸들러
+function onDc2Preset(v){
+  if(!v) return;
+  if(v==='all'){ GAMES.forEach(g=>activeGameIds.add(g.id)); _toast('📅 전체 활성','모든 경기를 활성화했어요.','#88ccff',2400); _runAfterActiveChange(); }
+  else activateRecentDays(+v);
+  const s=document.getElementById('dc2-preset'); if(s)s.value='';
 }
 function _groupActiveMode(games){
   const active=games.filter(g=>activeGameIds.has(g.id)).length;
@@ -26983,7 +27025,15 @@ function renderGamesOverview(){
       <span class="dc2-spacer"></span>
       <button class="dc2-mini" onclick="dashActivateAll(true)">현재 목록 켜기</button>
       <button class="dc2-mini" onclick="dashActivateAll(false)">끄기</button>
-      <button class="dc2-mini" onclick="activateRecentDays(30)">최근 30일</button>
+      <select id="dc2-preset-a" class="dc2-mini" onchange="onDc2Preset(this.value)" title="기간 프리셋">
+        <option value="">📅 기간 ▾</option>
+        <option value="30">최근 1개월</option>
+        <option value="60">최근 2개월</option>
+        <option value="90">최근 3개월</option>
+        <option value="180">최근 6개월</option>
+        <option value="all">전체 기간</option>
+      </select>
+      <span class="dc2-range"><input type="date" id="dc2-date-from-a" class="dc2-date" title="시작일"><span style="color:var(--muted)">~</span><input type="date" id="dc2-date-to-a" class="dc2-date" title="종료일"><button class="dc2-mini" onclick="activateDateRange((document.getElementById('dc2-date-from-a')||{}).value,(document.getElementById('dc2-date-to-a')||{}).value)">적용</button></span>
       <button class="dc2-mini amber" onclick="openServerLibraryModal()">☁ 서버 관리</button>
     </div>
     <div class="dc2-body">${rowsHtml}</div>
@@ -27340,7 +27390,15 @@ function toggleGame(gid){
         <span class="dc2-spacer"></span>
         <button class="dc2-mini" onclick="dashActivateAll(true)">현재 목록 켜기</button>
         <button class="dc2-mini" onclick="dashActivateAll(false)">끄기</button>
-        <button class="dc2-mini" onclick="activateRecentDays(30)">최근 30일</button>
+        <select id="dc2-preset" class="dc2-mini" onchange="onDc2Preset(this.value)" title="기간 프리셋">
+          <option value="">📅 기간 ▾</option>
+          <option value="30">최근 1개월</option>
+          <option value="60">최근 2개월</option>
+          <option value="90">최근 3개월</option>
+          <option value="180">최근 6개월</option>
+          <option value="all">전체 기간</option>
+        </select>
+        <span class="dc2-range"><input type="date" id="dc2-date-from" class="dc2-date" title="시작일"><span style="color:var(--muted)">~</span><input type="date" id="dc2-date-to" class="dc2-date" title="종료일"><button class="dc2-mini" onclick="activateDateRange()">적용</button></span>
         <button class="dc2-mini amber" onclick="openServerLibraryModal()">☁ 서버 관리</button>
       </div>
       <div class="dc2-body">${rowsHtml}</div>

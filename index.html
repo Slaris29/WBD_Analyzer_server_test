@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <!-- V10.1: 외부 이미지(WBD 프로필) hotlinking 방지 우회 - Referer 헤더 차단 -->
 <meta name="referrer" content="no-referrer">
-<title>WBD Baseball Analyzer V10.1</title>
+<title>WBD Baseball Analyzer V10.1 Server UI</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -365,6 +365,46 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
   .nav-btn+.nav-btn,.stab+.stab{margin-left:2px}
 }
 
+
+
+/* ━━━━━━━━━━ V10.1 SERVER UI / DATA HUB ━━━━━━━━━━ */
+.data-hub{background:linear-gradient(135deg,rgba(13,31,58,.96),rgba(8,17,31,.98));border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.data-hub-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.data-hub-title{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.9px;color:var(--amber);font-size:15px}
+.data-hub-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-hub-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.data-hub-btn{background:rgba(255,255,255,.035);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:7px 11px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.data-hub-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.08)}
+.data-hub-btn.primary{background:var(--amber);border-color:var(--amber);color:#000}
+.data-hub-btn.danger{border-color:rgba(255,69,96,.75);color:#ff7890}
+.data-hub-kpis{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px;margin-bottom:14px}
+.data-kpi{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:8px;padding:11px 12px;min-height:72px}
+.data-kpi .label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.data-kpi .val{font-family:var(--mono);font-size:23px;color:var(--amber)}
+.data-kpi .sub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.data-section-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:12px 0 8px;display:flex;align-items:center;gap:6px}
+.data-cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.data-cat-card{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 12px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.data-cat-card:hover{transform:translateY(-1px);border-color:var(--amber);background:rgba(245,166,35,.06)}
+.data-cat-card.active-filter{border-color:var(--amber);box-shadow:0 0 0 1px rgba(245,166,35,.25) inset}
+.data-cat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.data-cat-name{font-size:13px;font-weight:800;color:var(--text)}
+.data-cat-count{font-size:12px;color:var(--amber);font-family:var(--mono)}
+.data-cat-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-cat-progress{height:4px;background:rgba(255,255,255,.08);border-radius:999px;margin-top:9px;overflow:hidden}
+.data-cat-progress span{display:block;height:100%;background:var(--amber);border-radius:999px;min-width:2px}
+.data-chip-wrap{display:flex;gap:7px;flex-wrap:wrap}
+.data-chip{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px;padding:6px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .12s}
+.data-chip:hover{border-color:var(--amber);color:var(--text);background:rgba(245,166,35,.06)}
+.data-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.10);font-weight:700}
+.data-chip .cnt{font-family:var(--mono);color:var(--amber)}
+.load-screen-progress{margin-top:12px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.035)}
+.load-screen-progress-bar{height:9px;background:linear-gradient(90deg,var(--amber),#ffd36b);width:0%;transition:width .18s ease}
+.load-screen-progress-text{font-size:11px;color:var(--muted);font-family:var(--mono);padding:8px 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#dashboard-grid .game-card-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+@media(max-width:900px){.data-hub-kpis{grid-template-columns:repeat(2,1fr)}.data-cat-grid{grid-template-columns:1fr}.data-hub-actions{width:100%}.data-hub-btn{flex:1}.data-hub{padding:12px}}
+@media(max-width:480px){.data-hub-kpis{grid-template-columns:1fr}.data-kpi{min-height:62px}.data-kpi .val{font-size:20px}}
+
 </style>
 </head>
 <body>
@@ -372,7 +412,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 <!-- ════ UPLOAD PAGE ════ -->
 <div id="upload-page">
   <div class="logo-big">WBD</div>
-  <div class="logo-sub">BASEBALL ANALYZER · V10.1-SERVER-AUTO</div>
+  <div class="logo-sub">BASEBALL ANALYZER · V10.1-SERVER-UI-UI</div>
   <div id="drop-zone">
     <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="#5a7a9a" stroke-width="2"/><path d="M16 18h16M16 24h16M16 30h10" stroke="#5a7a9a" stroke-width="1.5" stroke-linecap="round"/><path d="M30 34l4-4 4 4M34 30v10" stroke="#f5a623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <div class="drop-title">CSV / TXT 파일을 드롭하세요</div>
@@ -390,9 +430,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
       <button class="btn-secondary" onclick="refreshServerLibrary()" style="font-size:11px;padding:6px 10px">새로고침</button>
     </div>
     <div id="server-library-groups" style="display:grid;grid-template-columns:1fr;gap:6px;margin:10px 0"></div>
+    <div id="server-load-progress" class="load-screen-progress" style="display:none"><div id="server-load-progress-bar" class="load-screen-progress-bar"></div><div class="load-screen-progress-text"><span id="server-load-progress-label">대기 중</span><span id="server-load-progress-count"></span></div></div>
     <div class="btn-row" style="margin-top:12px;justify-content:flex-start">
-      <button class="btn-primary" onclick="loadSelectedServerGroups(false)" style="font-size:12px;padding:8px 14px">선택 활성화</button>
-      <button class="btn-secondary" onclick="loadAllServerGroups(false)" style="font-size:12px;padding:8px 14px">전체 자동 불러오기</button>
+      <button id="server-selected-load-btn" class="btn-primary" onclick="loadSelectedServerGroups(false)" style="font-size:12px;padding:8px 14px">선택 활성화</button>
+      <button id="server-all-load-btn" class="btn-secondary" onclick="loadAllServerGroups(false)" style="font-size:12px;padding:8px 14px">전체 다시 불러오기</button>
       <button class="btn-secondary" onclick="document.getElementById('file-input').click()" style="font-size:12px;padding:8px 14px">내 CSV 사용</button>
     </div>
   </div>
@@ -406,7 +447,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
   <!-- 모바일 전용 상단 바 (햄버거) -->
   <div id="mobile-topbar" style="display:none">
     <button id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="메뉴">☰</button>
-    <div class="mobile-logo">WBD <span style="font-size:10px;color:var(--muted);margin-left:2px">V10.1-SERVER-AUTO</span></div>
+    <div class="mobile-logo">WBD <span style="font-size:10px;color:var(--muted);margin-left:2px">V10.1-SERVER-UI</span></div>
     <button class="mobile-icon-btn" onclick="openGlobalSearch()" title="검색">🔍</button>
     <button class="mobile-icon-btn" onclick="document.getElementById('add-file-input').click()" title="경기 추가" style="color:var(--amber)">+</button>
   </div>
@@ -471,7 +512,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
   </div>
 
   <div id="topnav">
-    <div class="nav-logo">WBD <span style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-left:4px">V10.1-SERVER-AUTO</span></div>
+    <div class="nav-logo">WBD <span style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-left:4px">V10.1-SERVER-UI</span></div>
     <button class="nav-btn active" onclick="showPage('home')">🏠 홈</button>
     <button class="nav-btn" onclick="showPage('pitcher')">⚾ 투수</button>
     <button class="nav-btn" onclick="showPage('batter')">🏏 타자</button>
@@ -2398,6 +2439,29 @@ function _serverSetStatus(msg, isError){
   }
 }
 
+function _serverSetLoadUI(isLoading, mode){
+  const sel=document.getElementById('server-selected-load-btn');
+  const all=document.getElementById('server-all-load-btn');
+  const refreshBtns=[...document.querySelectorAll('#server-library-box button')].filter(b=>b.textContent.includes('새로고침'));
+  if(sel){
+    sel.disabled=!!isLoading;
+    sel.textContent=isLoading?'자동 전체 로드 중...':'선택 활성화';
+    sel.style.opacity=isLoading?'.65':'1';
+    sel.style.cursor=isLoading?'wait':'pointer';
+  }
+  if(all){
+    all.disabled=!!isLoading;
+    all.textContent=isLoading?'잠시만 기다려줘':'전체 다시 불러오기';
+    all.style.opacity=isLoading?'.65':'1';
+    all.style.cursor=isLoading?'wait':'pointer';
+  }
+  refreshBtns.forEach(b=>{
+    b.disabled=!!isLoading;
+    b.style.opacity=isLoading?'.65':'1';
+    b.style.cursor=isLoading?'wait':'pointer';
+  });
+}
+
 function _serverSafeId(id){return String(id||'').replace(/[^a-zA-Z0-9_-]/g,'_');}
 
 function _normalizeServerManifest(raw){
@@ -2542,12 +2606,18 @@ async function loadServerFiles(files, appendExisting, opts){
   // 네트워크 다운로드는 병렬 처리하고 분석/병합은 기존 loadData 흐름대로 한 번에 처리한다.
   const totalBytes=files.reduce((s,f)=>s+(Number(f.size)||0),0);
   const mb=totalBytes/1024/1024;
+  // 자동 전체 로드는 확인창 없이 바로 진행한다.
+  // 수동으로 다시 불러올 때만 대용량 확인창을 띄운다.
   if(!opts.auto && (files.length>=30 || mb>=80)){
     const ok=confirm(`서버 경기 ${files.length}개${totalBytes?` / 약 ${mb.toFixed(1)}MB`:''}를 불러옵니다.\n파일이 많으면 시간이 걸릴 수 있어요. 계속할까요?`);
     if(!ok)return;
   }
 
   window._serverLoading=true;
+  if(opts.auto){
+    _serverSetLoadUI(true,'auto');
+    _serverSetStatus(`전체 서버 경기 자동 로드 시작... ${files.length}경기 · 버튼 안 눌러도 됩니다`, false);
+  }
   const uploadErr=document.getElementById('upload-error');
   if(uploadErr){uploadErr.style.display='none';uploadErr.textContent='';}
 
@@ -2575,20 +2645,20 @@ async function loadServerFiles(files, appendExisting, opts){
         results[i]={ok:false,label,path:f.path,error:e};
       }finally{
         done++;
-        _serverSetStatus(`서버 CSV 다운로드 중... ${done} / ${files.length} (${okCount} 성공)`, false);
+        _serverSetStatus(`${opts.auto?'자동 전체 로드 중':'서버 CSV 다운로드 중'}... ${done} / ${files.length} (${okCount} 성공)`, false);
         await new Promise(r=>setTimeout(r,0));
       }
     }
   }
 
   try{
-    _serverSetStatus(`서버 CSV 다운로드 시작... 0 / ${files.length}`, false);
+    _serverSetStatus(`${opts.auto?'전체 서버 경기 자동 다운로드 시작':'서버 CSV 다운로드 시작'}... 0 / ${files.length}`, false);
     const workers=Array.from({length:Math.min(concurrency,files.length)},()=>worker());
     await Promise.all(workers);
 
     let loaded=0;
     const failed=[];
-    _serverSetStatus(`서버 CSV 분석 중... 0 / ${okCount}`, false);
+    _serverSetStatus(`${opts.auto?'자동 전체 로드 분석 중':'서버 CSV 분석 중'}... 0 / ${okCount}`, false);
     for(let i=0;i<results.length;i++){
       const r=results[i];
       if(!r || !r.ok){
@@ -2600,7 +2670,7 @@ async function loadServerFiles(files, appendExisting, opts){
         loadData(r.text,r.label,append,true,{...r.meta,path:r.path,source:'server'});
         loaded++;
         if(loaded%5===0 || loaded===okCount){
-          _serverSetStatus(`서버 CSV 분석 중... ${loaded} / ${okCount}`, false);
+          _serverSetStatus(`${opts.auto?'자동 전체 로드 분석 중':'서버 CSV 분석 중'}... ${loaded} / ${okCount}`, false);
           await new Promise(rr=>setTimeout(rr,0));
         }
       }catch(e){
@@ -2612,11 +2682,12 @@ async function loadServerFiles(files, appendExisting, opts){
     _finishBulkLoad();
     const sec=((performance.now()-t0)/1000).toFixed(1);
     const msg=`성공 ${loaded}개${failed.length?`, 실패 ${failed.length}개`:''} · ${sec}초`;
-    _serverSetStatus(`서버 경기 로드 완료: ${msg}`, failed.length>0);
+    _serverSetStatus(`${opts.auto?'전체 서버 경기 자동 로드 완료':'서버 경기 로드 완료'}: ${msg}`, failed.length>0);
     _toast('☁ 서버 경기 불러오기 완료', msg+(failed.length?'\n'+failed.slice(0,3).join('\n'):''), failed.length?'#ffb833':'#88ccff', 5000);
     closeModal();
   }finally{
     window._serverLoading=false;
+    if(opts.auto)_serverSetLoadUI(false,'auto');
   }
 }
 
@@ -2649,13 +2720,466 @@ async function autoLoadAllServerFiles(){
   if(!files.length)return;
   window.SERVER_LIBRARY.autoLoading=true;
   try{
-    _serverSetStatus(`전체 서버 경기 자동 로드 준비... ${files.length}경기`, false);
+    _serverSetStatus(`전체 서버 경기 자동 로드 준비... ${files.length}경기 · 버튼 안 눌러도 됩니다`, false);
     await loadServerFiles(files, GAMES.length>0, {auto:true});
     window.SERVER_LIBRARY.autoLoaded=true;
   }finally{
     window.SERVER_LIBRARY.autoLoading=false;
   }
 }
+
+
+/* ══════════════════════════════════════
+   SERVER UI + BUNDLE LOADER OVERRIDES
+   - data/_bundles/*.json 이 있으면 그룹당 1요청으로 불러와 속도 개선
+   - 없으면 기존 개별 CSV fetch로 자동 fallback
+══════════════════════════════════════ */
+window.SERVER_CSV_CONCURRENCY = 16;
+window.SERVER_BUNDLE_CONCURRENCY = 4;
+
+function _serverProgress(show, pct, label, count){
+  const wrap=document.getElementById('server-load-progress');
+  const bar=document.getElementById('server-load-progress-bar');
+  const lab=document.getElementById('server-load-progress-label');
+  const cnt=document.getElementById('server-load-progress-count');
+  if(wrap)wrap.style.display=show?'block':'none';
+  if(bar)bar.style.width=Math.max(0,Math.min(100,pct||0))+'%';
+  if(lab)lab.textContent=label||'';
+  if(cnt)cnt.textContent=count||'';
+}
+
+function _serverSetStatus(msg, isError){
+  const el=document.getElementById('server-library-status');
+  if(el){
+    el.textContent=msg;
+    el.style.color=isError?'var(--red)':'var(--muted)';
+  }
+  const top=document.getElementById('server-live-status');
+  if(top){
+    top.textContent=msg;
+    top.style.color=isError?'var(--red)':'var(--muted)';
+  }
+}
+
+function _normalizeServerManifest(raw){
+  const result={groups:[]};
+  if(!raw) return result;
+  let groups=[];
+  if(Array.isArray(raw.groups)) groups=raw.groups;
+  else if(raw.categories && typeof raw.categories==='object' && !Array.isArray(raw.categories)){
+    groups=Object.entries(raw.categories).map(([id,files])=>({id,name:id,files}));
+  }else if(Array.isArray(raw.files)){
+    groups=[{id:'all',name:'전체',default:true,files:raw.files}];
+  }
+  result.groups=groups.map((g,idx)=>{
+    const id=String(g.id||g.key||('group_'+idx));
+    let files=Array.isArray(g.files)?g.files:[];
+    files=files.map((f,i)=>{
+      if(typeof f==='string'){
+        const short=f.split('/').pop()||f;
+        return {name:short.replace(/\.(csv|txt)$/i,''), path:f};
+      }
+      const path=f.path||f.url||f.href||'';
+      const short=(f.name||path.split('/').pop()||('game_'+(i+1))).replace(/\.(csv|txt)$/i,'');
+      return {...f,name:f.name||short,path};
+    }).filter(f=>f.path && /\.(csv|txt)(\?.*)?$/i.test(f.path));
+    return {
+      id,
+      name:String(g.name||g.title||id),
+      default:g.default!==false,
+      files,
+      bundle:g.bundle||null,
+      description:g.description||'',
+      category:g.category||'',
+      categoryName:g.categoryName||''
+    };
+  }).filter(g=>g.files.length>0);
+  return result;
+}
+
+function _selectedServerGroups(all){
+  const groups=window.SERVER_LIBRARY.groups||[];
+  return all?groups:groups.filter(g=>window.SERVER_LIBRARY.selected.has(g.id));
+}
+
+function _fileMetaFromGroup(g,f){
+  return {
+    ...f,
+    _group:g.name,_groupId:g.id,
+    category:g.category||'',
+    categoryName:g.categoryName||'',
+    groupName:g.name||'',
+    groupId:g.id||'',
+    source:'server'
+  };
+}
+
+async function _fetchServerGroupBundle(g){
+  if(!g.bundle || !g.bundle.path) return null;
+  const res=await fetch(g.bundle.path,{cache:'default'});
+  if(!res.ok)throw new Error(`bundle HTTP ${res.status}`);
+  const bundle=await res.json();
+  const files=Array.isArray(bundle.files)?bundle.files:[];
+  return files.map((f,i)=>({
+    ok:true,
+    text:String(f.text||''),
+    label:f.name || (String(f.path||'').split('/').pop()||`server_${i+1}.csv`),
+    path:f.path||'',
+    meta:_fileMetaFromGroup(g,{...f,path:f.path||''})
+  })).filter(x=>x.text);
+}
+
+async function _fetchServerFilesIndividually(files, opts, progressBase, progressTotal){
+  const concurrency=Math.max(2, Math.min(16, Number(window.SERVER_CSV_CONCURRENCY)||12));
+  const results=new Array(files.length);
+  let nextIdx=0, done=0, okCount=0;
+  async function worker(){
+    while(nextIdx<files.length){
+      const i=nextIdx++;
+      const f=files[i];
+      const label=f.name || (String(f.path||'').split('/').pop()||`server_${i+1}.csv`);
+      try{
+        const res=await fetch(f.path,{cache:'default'});
+        if(!res.ok)throw new Error(`HTTP ${res.status}`);
+        const text=await res.text();
+        results[i]={ok:true,text,label,path:f.path,meta:f};
+        okCount++;
+      }catch(e){
+        console.error('[server csv load failed]',f.path,e);
+        results[i]={ok:false,label,path:f.path,error:e};
+      }finally{
+        done++;
+        const current=(progressBase||0)+done;
+        const total=progressTotal||files.length;
+        const pct=total?current/total*45:10;
+        _serverSetStatus(`${opts.auto?'자동 전체 로드 중':'서버 CSV 다운로드 중'}... ${current} / ${total} (${okCount} 성공)`, false);
+        _serverProgress(true,pct,'다운로드 중',`${current} / ${total}`);
+        await new Promise(r=>setTimeout(r,0));
+      }
+    }
+  }
+  const workers=Array.from({length:Math.min(concurrency,files.length)},()=>worker());
+  await Promise.all(workers);
+  return results;
+}
+
+async function loadServerGroups(groups, appendExisting, opts){
+  opts=opts||{};
+  groups=(groups||[]).filter(Boolean);
+  const totalFiles=groups.reduce((s,g)=>s+(g.files||[]).length,0);
+  if(!totalFiles){alert('불러올 서버 경기 그룹을 선택해줘.');return;}
+  if(window._serverLoading){alert('이미 서버 경기 불러오는 중입니다.');return;}
+  const totalBytes=groups.reduce((s,g)=>s+((g.files||[]).reduce((a,f)=>a+(Number(f.size)||0),0)),0);
+  const mb=totalBytes/1024/1024;
+  if(!opts.auto && (totalFiles>=60 || mb>=100)){
+    const ok=confirm(`서버 경기 ${totalFiles}개${totalBytes?` / 약 ${mb.toFixed(1)}MB`:''}를 다시 불러옵니다. 계속할까요?`);
+    if(!ok)return;
+  }
+  window._serverLoading=true;
+  _serverSetLoadUI(true,opts.auto?'auto':'manual');
+  _serverProgress(true,2,'서버 데이터 준비 중',`0 / ${totalFiles}`);
+  const startedWithGames=GAMES.length>0;
+  const t0=performance.now();
+  try{
+    let allResults=[];
+    let downloadedFiles=0;
+    const withBundle=groups.filter(g=>g.bundle&&g.bundle.path);
+    const withoutBundle=groups.filter(g=>!(g.bundle&&g.bundle.path));
+    if(withBundle.length){
+      let next=0, doneGroup=0;
+      const concurrency=Math.max(1,Math.min(Number(window.SERVER_BUNDLE_CONCURRENCY)||4,withBundle.length));
+      async function bundleWorker(){
+        while(next<withBundle.length){
+          const i=next++;
+          const g=withBundle[i];
+          try{
+            _serverSetStatus(`묶음 데이터 다운로드 중... ${doneGroup} / ${withBundle.length}그룹`, false);
+            const arr=await _fetchServerGroupBundle(g);
+            allResults.push(...arr);
+            downloadedFiles+=arr.length;
+          }catch(e){
+            console.warn('[server bundle fallback]',g.id,e);
+            const files=(g.files||[]).map(f=>_fileMetaFromGroup(g,f));
+            const arr=await _fetchServerFilesIndividually(files, opts, downloadedFiles, totalFiles);
+            allResults.push(...arr);
+            downloadedFiles+=arr.filter(x=>x&&x.ok).length;
+          }finally{
+            doneGroup++;
+            const pct=10 + Math.min(35,(downloadedFiles/Math.max(1,totalFiles))*35);
+            _serverSetStatus(`서버 묶음 다운로드 중... ${downloadedFiles} / ${totalFiles}경기`, false);
+            _serverProgress(true,pct,'묶음 다운로드 중',`${downloadedFiles} / ${totalFiles}`);
+            await new Promise(r=>setTimeout(r,0));
+          }
+        }
+      }
+      await Promise.all(Array.from({length:concurrency},()=>bundleWorker()));
+    }
+    if(withoutBundle.length){
+      const files=withoutBundle.flatMap(g=>(g.files||[]).map(f=>_fileMetaFromGroup(g,f)));
+      const arr=await _fetchServerFilesIndividually(files, opts, downloadedFiles, totalFiles);
+      allResults.push(...arr);
+    }
+
+    // manifest 정렬 순서대로 분석되도록 정렬
+    const order=new Map();
+    groups.flatMap(g=>(g.files||[])).forEach((f,i)=>order.set(f.path,i));
+    allResults.sort((a,b)=>(order.get(a.path)??999999)-(order.get(b.path)??999999));
+
+    let loaded=0, parsed=0;
+    const okCount=allResults.filter(r=>r&&r.ok).length;
+    const failed=[];
+    _serverSetStatus(`${opts.auto?'자동 전체 로드 분석 중':'서버 CSV 분석 중'}... 0 / ${okCount}`, false);
+    _serverProgress(true,50,'분석 중',`0 / ${okCount}`);
+    for(let i=0;i<allResults.length;i++){
+      const r=allResults[i];
+      if(!r || !r.ok){
+        failed.push(`${r?.label||'unknown'}: ${r?.error?.message||'로드 실패'}`);
+        continue;
+      }
+      try{
+        const append=!!appendExisting || startedWithGames || loaded>0;
+        loadData(r.text,r.label,append,true,{...r.meta,path:r.path,source:'server'});
+        loaded++;
+      }catch(e){
+        if(e && e.code==='DUPLICATE'){
+          // loadData가 내부에서 중복 스킵 안내를 쌓으므로 실패로 보지 않음
+        }else{
+          console.error('[server csv parse failed]',r.path,e);
+          failed.push(`${r.label}: ${e.message}`);
+        }
+      }finally{
+        parsed++;
+        if(parsed%3===0 || parsed===okCount){
+          const pct=50 + (parsed/Math.max(1,okCount))*45;
+          _serverSetStatus(`${opts.auto?'자동 전체 로드 분석 중':'서버 CSV 분석 중'}... ${parsed} / ${okCount}`, false);
+          _serverProgress(true,pct,'분석 중',`${parsed} / ${okCount}`);
+          await new Promise(rr=>setTimeout(rr,0));
+        }
+      }
+    }
+
+    _finishBulkLoad();
+    const sec=((performance.now()-t0)/1000).toFixed(1);
+    const msg=`성공 ${loaded}개${failed.length?`, 실패 ${failed.length}개`:''} · ${sec}초`;
+    _serverSetStatus(`${opts.auto?'전체 서버 경기 자동 로드 완료':'서버 경기 로드 완료'}: ${msg}`, failed.length>0);
+    _serverProgress(true,100,'완료',msg);
+    setTimeout(()=>_serverProgress(false,0,'',''),1400);
+    _toast('☁ 서버 경기 불러오기 완료', msg+(failed.length?'\n'+failed.slice(0,3).join('\n'):''), failed.length?'#ffb833':'#88ccff', 5000);
+    closeModal();
+  }finally{
+    window._serverLoading=false;
+    _serverSetLoadUI(false,opts.auto?'auto':'manual');
+  }
+}
+
+async function loadAllServerGroups(append, opts){
+  if(!window.SERVER_LIBRARY.groups.length)await initServerLibrary(true);
+  await loadServerGroups(_selectedServerGroups(true), !!append, opts||{});
+}
+async function loadSelectedServerGroups(append, opts){
+  if(!window.SERVER_LIBRARY.groups.length)await initServerLibrary(true);
+  await loadServerGroups(_selectedServerGroups(false), !!append, opts||{});
+}
+async function loadServerFiles(files, appendExisting, opts){
+  // 하위 호환: 예전 버튼/모달이 files를 직접 넘겨도 동작
+  files=files||[];
+  const pseudo={id:'manual',name:'선택 파일',category:'',categoryName:'',files:files,bundle:null};
+  await loadServerGroups([pseudo], appendExisting, opts||{});
+}
+
+async function autoLoadAllServerFiles(){
+  if(!window.SERVER_AUTO_LOAD_ALL)return;
+  if(window.SERVER_LIBRARY.autoLoaded || window.SERVER_LIBRARY.autoLoading)return;
+  const groups=window.SERVER_LIBRARY.groups||[];
+  if(!groups.length)return;
+  window.SERVER_LIBRARY.autoLoading=true;
+  try{
+    const total=groups.reduce((s,g)=>s+(g.files||[]).length,0);
+    _serverSetStatus(`전체 서버 경기 자동 로드 준비... ${total}경기`, false);
+    await loadServerGroups(groups, GAMES.length>0, {auto:true});
+    window.SERVER_LIBRARY.autoLoaded=true;
+  }finally{
+    window.SERVER_LIBRARY.autoLoading=false;
+  }
+}
+
+function _gameCleanFileName(name){return String(name||'').replace(/\.(csv|txt)$/i,'');}
+function _gameDisplayInfo(g){
+  const raw=_parseGameName(g.name);
+  let a=_normalizeTeam(raw.teamA), b=_normalizeTeam(raw.teamB);
+  const date=raw.date||'';
+  const file=_gameCleanFileName(g.name);
+  const known=!!(a&&b);
+  if(!a)a='레드';
+  if(!b)b='블루';
+  return {date,teamA:a,teamB:b,knownTeams:known,title:known?`${a} vs ${b}`:file};
+}
+function _getGameDateValue(g){
+  const d=(_parseGameName(g.name)||{}).date||'';
+  return /^\d{4}-\d{2}-\d{2}$/.test(d)?new Date(d+'T00:00:00').getTime():0;
+}
+function _runAfterActiveChange(){
+  rebuildG();
+  updateNavInfo();
+  renderGamesList();
+  populateSelects();
+  renderActiveContent();
+}
+function setDashboardCategoryFilter(cat){
+  const sel=document.getElementById('dash-category-filter');
+  if(sel)sel.value=cat||'';
+  const group=document.getElementById('dash-group-filter');
+  if(group)group.value='';
+  renderGameDashboard();
+}
+function setDashboardGroupFilter(gid){
+  const group=document.getElementById('dash-group-filter');
+  if(group)group.value=gid||'';
+  renderGameDashboard();
+}
+function activateMetaScope(category, groupId, on){
+  GAMES.forEach(g=>{
+    let match=true;
+    if(category && (g.category||'local')!==category)match=false;
+    if(groupId && (g.groupId||'local')!==groupId)match=false;
+    if(match){ if(on)activeGameIds.add(g.id); else activeGameIds.delete(g.id); }
+  });
+  _runAfterActiveChange();
+}
+function activateOnlyMetaScope(category, groupId){
+  activeGameIds.clear();
+  GAMES.forEach(g=>{
+    let match=true;
+    if(category && (g.category||'local')!==category)match=false;
+    if(groupId && (g.groupId||'local')!==groupId)match=false;
+    if(match)activeGameIds.add(g.id);
+  });
+  _runAfterActiveChange();
+}
+function activateRecentDays(days){
+  const dates=GAMES.map(_getGameDateValue).filter(Boolean);
+  if(!dates.length){_toast('날짜 정보 없음','파일명에서 날짜를 찾지 못했어요.','#ffb833',3000);return;}
+  const max=Math.max(...dates);
+  const cut=max-days*24*3600*1000;
+  activeGameIds.clear();
+  GAMES.forEach(g=>{const t=_getGameDateValue(g); if(t && t>=cut)activeGameIds.add(g.id);});
+  _runAfterActiveChange();
+}
+
+function renderGamesOverview(){
+  const el=document.getElementById('games-overview');
+  if(!el)return;
+  if(!GAMES.length){el.style.display='none';return;}
+  el.style.display='block';
+  const total=GAMES.length;
+  const active=GAMES.filter(g=>activeGameIds.has(g.id)).length;
+  const totalP=GAMES.reduce((s,g)=>s+(g.pitches?g.pitches.length:0),0);
+  const activeP=G.length;
+  const server=GAMES.filter(g=>g.source==='server').length;
+  const local=GAMES.filter(g=>g.source!=='server').length;
+  const cats=new Map();
+  const groups=new Map();
+  GAMES.forEach(g=>{
+    const cat=g.category||'local';
+    const catName=g.categoryName||(cat==='local'?'직접 추가':cat);
+    if(!cats.has(cat))cats.set(cat,{id:cat,name:catName,total:0,active:0,pitches:0});
+    const c=cats.get(cat);c.total++;c.pitches+=g.pitches.length;if(activeGameIds.has(g.id))c.active++;
+    const gid=g.groupId||'local';
+    const gname=g.groupName||(gid==='local'?'직접 추가':gid);
+    if(!groups.has(gid))groups.set(gid,{id:gid,name:gname,category:cat,categoryName:catName,total:0,active:0});
+    const gr=groups.get(gid);gr.total++;if(activeGameIds.has(g.id))gr.active++;
+  });
+  const catFilter=(document.getElementById('dash-category-filter')||{}).value||'';
+  const groupFilter=(document.getElementById('dash-group-filter')||{}).value||'';
+  const catOrder=['league','scrim','independent','event','etc','local'];
+  const catEntries=[...cats.values()].sort((a,b)=>{
+    const ai=catOrder.indexOf(a.id), bi=catOrder.indexOf(b.id);
+    return (ai<0?99:ai)-(bi<0?99:bi)||a.name.localeCompare(b.name,'ko');
+  });
+  const groupEntries=[...groups.values()].sort((a,b)=>String(a.name).localeCompare(String(b.name),'ko')).slice(0,18);
+  const catCards=catEntries.map(c=>{
+    const pct=c.total?Math.round(c.active/c.total*100):0;
+    const activeClass=catFilter===c.id?' active-filter':'';
+    return `<div class="data-cat-card${activeClass}" onclick="setDashboardCategoryFilter('${String(c.id).replace(/'/g,"\\'")}')">
+      <div class="data-cat-top"><span class="data-cat-name">${c.name}</span><span class="data-cat-count">${c.active}/${c.total}</span></div>
+      <div class="data-cat-sub">${c.pitches.toLocaleString()}투구 · ${pct}% 활성</div>
+      <div class="data-cat-progress"><span style="width:${pct}%"></span></div>
+      <div style="display:flex;gap:6px;margin-top:9px" onclick="event.stopPropagation()">
+        <button class="data-hub-btn" style="padding:4px 8px" onclick="activateMetaScope('${String(c.id).replace(/'/g,"\\'")}', '', true)">켜기</button>
+        <button class="data-hub-btn" style="padding:4px 8px" onclick="activateMetaScope('${String(c.id).replace(/'/g,"\\'")}', '', false)">끄기</button>
+        <button class="data-hub-btn" style="padding:4px 8px" onclick="activateOnlyMetaScope('${String(c.id).replace(/'/g,"\\'")}', '')">이것만</button>
+      </div>
+    </div>`;
+  }).join('');
+  const chips=groupEntries.map(g=>`<button class="data-chip ${groupFilter===g.id?'active':''}" onclick="setDashboardGroupFilter('${String(g.id).replace(/'/g,"\\'")}')"><span>${g.name}</span><span class="cnt">${g.active}/${g.total}</span></button>`).join('');
+  el.innerHTML=`<div class="data-hub">
+    <div class="data-hub-head">
+      <div><div class="data-hub-title">☁ 데이터 컨트롤 센터</div><div class="data-hub-sub" id="server-live-status">전체 서버 DB를 불러온 뒤 여기서 분석 대상만 켜고 끕니다.</div></div>
+      <div class="data-hub-actions">
+        <button class="data-hub-btn primary" onclick="dashActivateAll(true)">전체 활성</button>
+        <button class="data-hub-btn" onclick="dashActivateAll(false)">전체 비활성</button>
+        <button class="data-hub-btn" onclick="activateRecentDays(30)">최근 30일</button>
+        <button class="data-hub-btn" onclick="openServerLibraryModal()">서버 관리</button>
+      </div>
+    </div>
+    <div class="data-hub-kpis">
+      <div class="data-kpi"><div class="label">로드 경기</div><div class="val">${total}</div><div class="sub">서버 ${server} · 직접 ${local}</div></div>
+      <div class="data-kpi"><div class="label">활성 경기</div><div class="val">${active}</div><div class="sub">${total?Math.round(active/total*100):0}% 선택됨</div></div>
+      <div class="data-kpi"><div class="label">전체 투구</div><div class="val">${totalP.toLocaleString()}</div><div class="sub">DB 원본 기준</div></div>
+      <div class="data-kpi"><div class="label">활성 투구</div><div class="val">${activeP.toLocaleString()}</div><div class="sub">현재 분석 반영</div></div>
+      <div class="data-kpi"><div class="label">그룹</div><div class="val">${groups.size}</div><div class="sub">시즌/스크림 묶음</div></div>
+    </div>
+    <div class="data-section-label">분류별 선택</div>
+    <div class="data-cat-grid">${catCards}</div>
+    <div class="data-section-label">그룹 빠른 필터</div>
+    <div class="data-chip-wrap"><button class="data-chip ${!groupFilter?'active':''}" onclick="setDashboardGroupFilter('')">전체 그룹 <span class="cnt">${total}</span></button>${chips}</div>
+  </div>`;
+}
+
+function renderGameDashboard(){
+  _populateDashMetaFilters();
+  _populateDashTeamFilter();
+  const grid=document.getElementById('dashboard-grid');
+  if(!grid)return;
+  const catFilter=(document.getElementById('dash-category-filter')||{}).value||'';
+  const groupFilter=(document.getElementById('dash-group-filter')||{}).value||'';
+  const teamFilter=(document.getElementById('dash-team-filter')||{}).value||'';
+  const sortMode=(document.getElementById('dash-sort')||{}).value||'date-desc';
+  const search=((document.getElementById('dash-search')||{}).value||'').toLowerCase().trim();
+  let list=GAMES.slice().map(g=>({g,info:_gameDisplayInfo(g)}));
+  if(catFilter)list=list.filter(x=>(x.g.category||'local')===catFilter);
+  if(groupFilter)list=list.filter(x=>(x.g.groupId||'local')===groupFilter);
+  if(teamFilter)list=list.filter(x=>x.info.teamA===teamFilter||x.info.teamB===teamFilter);
+  if(search)list=list.filter(x=>(x.info.teamA+' '+x.info.teamB+' '+x.info.title+' '+x.g.name+' '+_gameCategoryLabel(x.g)+' '+_gameGroupLabel(x.g)).toLowerCase().includes(search));
+  list.sort((a,b)=>{
+    const da=a.info.date||'', db=b.info.date||'';
+    return sortMode==='date-asc'?da.localeCompare(db):db.localeCompare(da);
+  });
+  grid.innerHTML=list.map(({g,info})=>{
+    const isActive=activeGameIds.has(g.id);
+    const {totalA,totalB,hA,hB}=_computeInningScores(g.pitches);
+    const winA=totalA>totalB, winB=totalB>totalA;
+    const aColor=winA?'#ff6b6b':winB?'#6a4040':'#9aa8b8';
+    const bColor=winB?'#6bb5ff':winA?'#406a80':'#9aa8b8';
+    const activeStyle=isActive?'border:1.5px solid var(--amber);box-shadow:0 0 8px rgba(245,166,35,0.25);opacity:1':'border:1px solid var(--border);opacity:0.55';
+    return `<div style="background:var(--card);${activeStyle};border-radius:8px;padding:10px 12px;transition:all .15s;position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:6px">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:10px;color:${isActive?'var(--amber)':'var(--muted)'};font-family:var(--mono);min-width:80px">
+          <input type="checkbox" ${isActive?'checked':''} onchange="toggleGame('${g.id}')" style="cursor:pointer;accent-color:var(--amber)">${info.date||'날짜 없음'}
+        </label>
+        <span title="${_gameCategoryLabel(g)} / ${_gameGroupLabel(g)}" style="font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:2px 7px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${_gameSourceBadge(g)} ${_gameGroupLabel(g)}</span>
+        <button onclick="openGameScoreboard('${g.id}')" title="스코어보드 보기" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;font-family:var(--cond)">상세</button>
+      </div>
+      ${info.knownTeams?`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><span class="game-card-title" style="font-size:12px;color:${aColor};font-weight:${winA?700:500}">${winA?'🏆 ':''}${info.teamA}</span><span style="font-size:18px;font-family:var(--mono);color:${aColor};font-weight:${winA?700:500}">${totalA}</span></div><div style="display:flex;justify-content:space-between;align-items:center"><span class="game-card-title" style="font-size:12px;color:${bColor};font-weight:${winB?700:500}">${winB?'🏆 ':''}${info.teamB}</span><span style="font-size:18px;font-family:var(--mono);color:${bColor};font-weight:${winB?700:500}">${totalB}</span></div>`:`<div title="${g.name}" style="font-size:12px;color:var(--text);font-weight:700;line-height:1.35;height:34px;overflow:hidden">${info.title}</div><div style="margin-top:5px;font-size:10px;color:var(--muted)">스코어 ${totalA} : ${totalB}</div>`}
+      <div style="margin-top:7px;padding-top:6px;border-top:1px solid var(--border);font-size:9px;color:var(--muted);font-family:var(--mono);display:flex;justify-content:space-between"><span>H ${hA}-${hB}</span><span>${g.pitches.length}투구</span></div>
+    </div>`;
+  }).join('');
+  if(list.length===0)grid.innerHTML='<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px;grid-column:1/-1">조건에 맞는 경기가 없어요</div>';
+  const activeCnt=list.filter(x=>activeGameIds.has(x.g.id)).length;
+  const el=document.getElementById('dashboard-summary');
+  if(el)el.textContent=`${activeCnt} / ${list.length} 경기 활성  ·  전체 ${GAMES.length}경기 · 활성 투구 ${G.length}개`;
+}
+
 
 // 페이지 열릴 때 manifest를 읽고, 서버 CSV는 기본적으로 전체 자동 로드한다.
 initServerLibrary(false).then(()=>autoLoadAllServerFiles());
@@ -22496,7 +23020,47 @@ function _renameMyTeam(id){
     <style>
       .team-icon-btn.active{border-color:var(--amber)!important;background:rgba(245,166,35,0.15)!important;transform:scale(1.05)}
       .team-color-btn.active{border-color:#fff!important;transform:scale(1.15);box-shadow:0 0 0 2px rgba(255,255,255,0.3)}
-    </style>
+    
+
+/* ━━━━━━━━━━ V10.1 SERVER UI / DATA HUB ━━━━━━━━━━ */
+.data-hub{background:linear-gradient(135deg,rgba(13,31,58,.96),rgba(8,17,31,.98));border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.data-hub-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.data-hub-title{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.9px;color:var(--amber);font-size:15px}
+.data-hub-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-hub-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.data-hub-btn{background:rgba(255,255,255,.035);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:7px 11px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.data-hub-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.08)}
+.data-hub-btn.primary{background:var(--amber);border-color:var(--amber);color:#000}
+.data-hub-btn.danger{border-color:rgba(255,69,96,.75);color:#ff7890}
+.data-hub-kpis{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px;margin-bottom:14px}
+.data-kpi{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:8px;padding:11px 12px;min-height:72px}
+.data-kpi .label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.data-kpi .val{font-family:var(--mono);font-size:23px;color:var(--amber)}
+.data-kpi .sub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.data-section-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:12px 0 8px;display:flex;align-items:center;gap:6px}
+.data-cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.data-cat-card{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 12px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.data-cat-card:hover{transform:translateY(-1px);border-color:var(--amber);background:rgba(245,166,35,.06)}
+.data-cat-card.active-filter{border-color:var(--amber);box-shadow:0 0 0 1px rgba(245,166,35,.25) inset}
+.data-cat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.data-cat-name{font-size:13px;font-weight:800;color:var(--text)}
+.data-cat-count{font-size:12px;color:var(--amber);font-family:var(--mono)}
+.data-cat-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-cat-progress{height:4px;background:rgba(255,255,255,.08);border-radius:999px;margin-top:9px;overflow:hidden}
+.data-cat-progress span{display:block;height:100%;background:var(--amber);border-radius:999px;min-width:2px}
+.data-chip-wrap{display:flex;gap:7px;flex-wrap:wrap}
+.data-chip{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px;padding:6px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .12s}
+.data-chip:hover{border-color:var(--amber);color:var(--text);background:rgba(245,166,35,.06)}
+.data-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.10);font-weight:700}
+.data-chip .cnt{font-family:var(--mono);color:var(--amber)}
+.load-screen-progress{margin-top:12px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.035)}
+.load-screen-progress-bar{height:9px;background:linear-gradient(90deg,var(--amber),#ffd36b);width:0%;transition:width .18s ease}
+.load-screen-progress-text{font-size:11px;color:var(--muted);font-family:var(--mono);padding:8px 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#dashboard-grid .game-card-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+@media(max-width:900px){.data-hub-kpis{grid-template-columns:repeat(2,1fr)}.data-cat-grid{grid-template-columns:1fr}.data-hub-actions{width:100%}.data-hub-btn{flex:1}.data-hub{padding:12px}}
+@media(max-width:480px){.data-hub-kpis{grid-template-columns:1fr}.data-kpi{min-height:62px}.data-kpi .val{font-size:20px}}
+
+</style>
   </div>`;
   window._editTeamIcon=curIcon;
   window._editTeamColor=curColor;
@@ -23054,7 +23618,47 @@ function _runSimulation(n){
       <div style="display:inline-block;width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--amber);border-radius:50%;animation:spin 0.8s linear infinite"></div>
       <div style="margin-top:14px;font-size:13px;color:var(--muted)">${n.toLocaleString()}경기 시뮬 중...</div>
     </div>
-    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
+    <style>@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ━━━━━━━━━━ V10.1 SERVER UI / DATA HUB ━━━━━━━━━━ */
+.data-hub{background:linear-gradient(135deg,rgba(13,31,58,.96),rgba(8,17,31,.98));border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 8px 22px rgba(0,0,0,.16)}
+.data-hub-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.data-hub-title{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.9px;color:var(--amber);font-size:15px}
+.data-hub-sub{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-hub-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.data-hub-btn{background:rgba(255,255,255,.035);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:7px 11px;font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.data-hub-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.08)}
+.data-hub-btn.primary{background:var(--amber);border-color:var(--amber);color:#000}
+.data-hub-btn.danger{border-color:rgba(255,69,96,.75);color:#ff7890}
+.data-hub-kpis{display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:10px;margin-bottom:14px}
+.data-kpi{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:8px;padding:11px 12px;min-height:72px}
+.data-kpi .label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.data-kpi .val{font-family:var(--mono);font-size:23px;color:var(--amber)}
+.data-kpi .sub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.data-section-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin:12px 0 8px;display:flex;align-items:center;gap:6px}
+.data-cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.data-cat-card{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 12px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.data-cat-card:hover{transform:translateY(-1px);border-color:var(--amber);background:rgba(245,166,35,.06)}
+.data-cat-card.active-filter{border-color:var(--amber);box-shadow:0 0 0 1px rgba(245,166,35,.25) inset}
+.data-cat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.data-cat-name{font-size:13px;font-weight:800;color:var(--text)}
+.data-cat-count{font-size:12px;color:var(--amber);font-family:var(--mono)}
+.data-cat-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+.data-cat-progress{height:4px;background:rgba(255,255,255,.08);border-radius:999px;margin-top:9px;overflow:hidden}
+.data-cat-progress span{display:block;height:100%;background:var(--amber);border-radius:999px;min-width:2px}
+.data-chip-wrap{display:flex;gap:7px;flex-wrap:wrap}
+.data-chip{background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:11px;padding:6px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .12s}
+.data-chip:hover{border-color:var(--amber);color:var(--text);background:rgba(245,166,35,.06)}
+.data-chip.active{border-color:var(--amber);color:var(--amber);background:rgba(245,166,35,.10);font-weight:700}
+.data-chip .cnt{font-family:var(--mono);color:var(--amber)}
+.load-screen-progress{margin-top:12px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:rgba(255,255,255,.035)}
+.load-screen-progress-bar{height:9px;background:linear-gradient(90deg,var(--amber),#ffd36b);width:0%;transition:width .18s ease}
+.load-screen-progress-text{font-size:11px;color:var(--muted);font-family:var(--mono);padding:8px 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#dashboard-grid .game-card-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+@media(max-width:900px){.data-hub-kpis{grid-template-columns:repeat(2,1fr)}.data-cat-grid{grid-template-columns:1fr}.data-hub-actions{width:100%}.data-hub-btn{flex:1}.data-hub{padding:12px}}
+@media(max-width:480px){.data-hub-kpis{grid-template-columns:1fr}.data-kpi{min-height:62px}.data-kpi .val{font-size:20px}}
+
+</style>`;
     // 다음 tick에서 실행 (UI 반영 후)
     setTimeout(()=>_runSimActual(idA,idB,n),20);
     return;

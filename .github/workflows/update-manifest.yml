@@ -22,11 +22,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate manifest
+      - name: Generate manifest and bundles
         run: node scripts/generate-manifest.js
 
-      - name: Commit manifest if changed
+      - name: Commit manifest and bundles if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: update WBD CSV manifest'
-          file_pattern: data/manifest.json
+          commit_message: 'chore: update WBD CSV manifest and bundles'
+          file_pattern: |
+            data/manifest.json
+            data/_bundles/*.json

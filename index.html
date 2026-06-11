@@ -22,6 +22,33 @@
 }
 html,body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--cond)}
 /* ── UPLOAD ── */
+/* V10.2 서버 라이브러리 — 전광판 컨셉 */
+@keyframes wbd-dot-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.srv-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px;animation:wbd-dot-pulse 1.6s ease-in-out infinite;vertical-align:1px}
+.srv-live-dot.err{background:var(--red);animation:none}
+.srv-live-dot.busy{background:var(--amber)}
+.srv-cat-eyebrow{display:flex;align-items:center;gap:10px;margin:14px 0 8px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-family:var(--mono)}
+.srv-cat-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.srv-card{position:relative;border:1px solid var(--border);border-radius:8px;background:var(--card2);padding:11px 13px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s;user-select:none}
+.srv-card:hover{border-color:#3a5a7a;transform:translateY(-1px)}
+.srv-card.on{border-color:var(--amber);background:linear-gradient(135deg,rgba(245,166,35,.09),rgba(245,166,35,.02))}
+.srv-card.on::after{content:'✓';position:absolute;top:7px;right:9px;font-size:11px;color:var(--amber);font-weight:900}
+.srv-card .nm{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.3;padding-right:16px}
+.srv-card .ct{margin-top:5px;font-family:var(--mono);font-size:11px;color:var(--amber)}
+.srv-card.off .nm{color:var(--muted)}
+.srv-card.off .ct{color:#5a6a80}
+.srv-sumbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.srv-sumbar .total{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.srv-sumbar .total b{color:var(--amber)}
+#drop-zone.slim{padding:18px 24px;display:flex;align-items:center;gap:14px;text-align:left;max-width:640px;flex-wrap:wrap}
+#drop-zone.slim .btn-row button{white-space:nowrap}
+#drop-zone.slim svg{margin:0;flex-shrink:0;width:34px;height:34px}
+#drop-zone.slim .drop-title{font-size:13.5px;margin:0 0 2px}
+#drop-zone.slim .drop-sub{font-size:11px}
+#drop-zone.slim .btn-row{margin:0 0 0 auto}
+@media(prefers-reduced-motion:reduce){.srv-live-dot{animation:none}.srv-card:hover{transform:none}}
+
 #upload-page{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px}
 .logo-big{font-family:var(--mono);font-size:36px;color:var(--amber);letter-spacing:4px;margin-bottom:8px}
 .logo-sub{font-size:14px;color:var(--muted);letter-spacing:2px;margin-bottom:40px}
@@ -457,29 +484,33 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;heigh
 <div id="upload-page">
   <div class="logo-big">WBD</div>
   <div class="logo-sub">BASEBALL ANALYZER · V10.2</div>
-  <div id="server-library-box" style="width:100%;max-width:600px;margin-bottom:18px;background:var(--card);border:1px solid rgba(245,166,35,0.4);border-radius:10px;padding:18px;display:none;box-shadow:0 0 24px rgba(245,166,35,0.06)">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+  <div id="server-library-box" style="width:100%;max-width:640px;margin-bottom:16px;background:var(--card);border:1px solid rgba(245,166,35,0.35);border-radius:12px;padding:20px 22px;display:none;box-shadow:0 0 32px rgba(245,166,35,0.05);text-align:left">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
       <div>
-        <div style="font-size:13px;font-weight:700;letter-spacing:1px;color:var(--amber);text-transform:uppercase">☁ 서버 경기 데이터</div>
-        <div id="server-library-status" style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:3px">data/manifest.json 확인 중...</div>
+        <div style="font-size:14px;font-weight:700;letter-spacing:1.5px;color:var(--amber);text-transform:uppercase;font-family:var(--mono)">☁ 경기 데이터</div>
+        <div id="server-library-status" style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:5px"><span class="srv-live-dot busy"></span>data/manifest.json 확인 중...</div>
       </div>
-      <button class="btn-secondary" onclick="refreshServerLibrary()" style="font-size:11px;padding:6px 10px">새로고침</button>
+      <button class="btn-secondary" onclick="refreshServerLibrary()" title="서버 목록 새로고침" style="font-size:11px;padding:6px 11px">↻ 새로고침</button>
     </div>
-    <div id="server-library-groups" style="display:grid;grid-template-columns:1fr;gap:6px;margin:10px 0"></div>
-    <div id="server-load-progress" class="load-screen-progress" style="display:none"><div id="server-load-progress-bar" class="load-screen-progress-bar"></div><div class="load-screen-progress-text"><span id="server-load-progress-label">대기 중</span><span id="server-load-progress-count"></span></div></div>
-    <div class="btn-row" style="margin-top:12px;justify-content:flex-start">
-      <button id="server-selected-load-btn" class="btn-primary" onclick="loadSelectedServerGroups(false)" style="font-size:12px;padding:8px 14px">선택 활성화</button>
-      <button id="server-all-load-btn" class="btn-secondary" onclick="loadAllServerGroups(false)" style="font-size:12px;padding:8px 14px">전체 다시 불러오기</button>
-      <button class="btn-secondary" onclick="document.getElementById('file-input').click()" style="font-size:12px;padding:8px 14px">내 CSV 사용</button>
+    <div id="server-library-groups" style="margin-top:4px"></div>
+    <div id="server-load-progress" class="load-screen-progress" style="display:none;margin-top:14px"><div id="server-load-progress-bar" class="load-screen-progress-bar"></div><div class="load-screen-progress-text"><span id="server-load-progress-label">대기 중</span><span id="server-load-progress-count"></span></div></div>
+    <div class="srv-sumbar">
+      <div class="btn-row" style="margin:0;justify-content:flex-start">
+        <button id="server-selected-load-btn" class="btn-primary" onclick="loadSelectedServerGroups(false)" style="font-size:12px;padding:8px 16px">선택 그룹 불러오기</button>
+        <button id="server-all-load-btn" class="btn-secondary" onclick="loadAllServerGroups(false)" style="font-size:12px;padding:8px 14px">전체 불러오기</button>
+      </div>
+      <div class="total" id="server-selected-summary"></div>
     </div>
   </div>
-  <div style="display:flex;align-items:center;gap:12px;width:100%;max-width:600px;margin:4px 0 14px"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--muted);letter-spacing:1px">또는 직접 업로드</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
-  <div id="drop-zone">
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="#5a7a9a" stroke-width="2"/><path d="M16 18h16M16 24h16M16 30h10" stroke="#5a7a9a" stroke-width="1.5" stroke-linecap="round"/><path d="M30 34l4-4 4 4M34 30v10" stroke="#f5a623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="drop-title">CSV / TXT 파일을 드롭하세요</div>
-    <div class="drop-sub">WBD 경기 로그 파일 (.csv, .txt) — 여러 파일 동시 선택 가능</div>
+  <div style="display:flex;align-items:center;gap:12px;width:100%;max-width:640px;margin:2px 0 12px"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:10.5px;color:var(--muted);letter-spacing:1.5px;font-family:var(--mono)">또는 직접 업로드</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+  <div id="drop-zone" class="slim">
+    <svg viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="#5a7a9a" stroke-width="2"/><path d="M16 18h16M16 24h16M16 30h10" stroke="#5a7a9a" stroke-width="1.5" stroke-linecap="round"/><path d="M30 34l4-4 4 4M34 30v10" stroke="#f5a623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div>
+      <div class="drop-title">CSV / TXT 드롭</div>
+      <div class="drop-sub">WBD 경기 로그 — 여러 파일 동시 가능</div>
+    </div>
     <div class="btn-row">
-      <button class="btn-primary" onclick="document.getElementById('file-input').click()">📁 파일 선택</button>
+      <button class="btn-primary" onclick="document.getElementById('file-input').click()" style="font-size:12px;padding:8px 14px">📁 파일 선택</button>
     </div>
   </div>
   <input type="file" id="file-input" accept=".csv,.txt" multiple>
@@ -3102,10 +3133,11 @@ window.SERVER_LIBRARY = { manifest:null, groups:[], selected:new Set(), loading:
 window.SERVER_AUTO_LOAD_ALL = true;
 window.SERVER_CSV_CONCURRENCY = 8;
 
-function _serverSetStatus(msg, isError){
+function _serverSetStatus(msg, isError, busy){
   const el=document.getElementById('server-library-status');
   if(el){
-    el.textContent=msg;
+    const dot = isError?'err':(busy||window._serverLoading?'busy':'');
+    el.innerHTML='<span class="srv-live-dot '+dot+'"></span>'+String(msg).replace(/</g,'&lt;');
     el.style.color=isError?'var(--red)':'var(--muted)';
   }
 }
@@ -3116,13 +3148,13 @@ function _serverSetLoadUI(isLoading, mode){
   const refreshBtns=[...document.querySelectorAll('#server-library-box button')].filter(b=>b.textContent.includes('새로고침'));
   if(sel){
     sel.disabled=!!isLoading;
-    sel.textContent=isLoading?'자동 전체 로드 중...':'선택 활성화';
+    sel.textContent=isLoading?'불러오는 중...':'선택 그룹 불러오기';
     sel.style.opacity=isLoading?'.65':'1';
     sel.style.cursor=isLoading?'wait':'pointer';
   }
   if(all){
     all.disabled=!!isLoading;
-    all.textContent=isLoading?'잠시만 기다려줘':'전체 다시 불러오기';
+    all.textContent=isLoading?'잠시만요...':'전체 불러오기';
     all.style.opacity=isLoading?'.65':'1';
     all.style.cursor=isLoading?'wait':'pointer';
   }
@@ -3170,21 +3202,13 @@ function _normalizeServerManifest(raw){
   return result;
 }
 
-function _serverGroupCheckboxHtml(g){
-  const checked=window.SERVER_LIBRARY.selected.has(g.id)?'checked':'';
-  const category=g.categoryName||g.category||'';
-  const catBadge=category?`<span style="font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:3px;padding:1px 6px;margin-left:6px;white-space:nowrap">${category}</span>`:'';
-  const desc=g.description?`<div style="font-size:10px;color:var(--muted);margin-top:2px">${g.description}</div>`:'';
-  return `<label style="display:flex;align-items:flex-start;gap:9px;padding:9px 10px;border:1px solid var(--border);border-radius:5px;background:var(--card2);cursor:pointer">
-    <input type="checkbox" data-server-group="${_serverSafeId(g.id)}" ${checked} onchange="toggleServerGroup('${String(g.id).replace(/'/g,"\\'")}',this.checked)" style="margin-top:2px">
-    <span style="flex:1">
-      <span style="display:flex;justify-content:space-between;gap:8px;align-items:center">
-        <b style="font-size:12px;color:var(--text)">${g.name}${catBadge}</b>
-        <span style="font-size:11px;color:var(--amber);font-family:var(--mono)">${g.files.length}경기</span>
-      </span>
-      ${desc}
-    </span>
-  </label>`;
+function _serverGroupCardHtml(g){
+  const on=window.SERVER_LIBRARY.selected.has(g.id);
+  const desc=g.description?`<div style="font-size:10px;color:var(--muted);margin-top:3px">${g.description}</div>`:'';
+  return `<div class="srv-card ${on?'on':'off'}" onclick="toggleServerGroup('${String(g.id).replace(/'/g,"\\'")}')">
+    <div class="nm">${g.name}</div>
+    <div class="ct">${g.files.length}경기</div>${desc}
+  </div>`;
 }
 
 function renderServerLibraryPanel(){
@@ -3194,20 +3218,52 @@ function renderServerLibraryPanel(){
   if(!groupsEl)return;
   const groups=window.SERVER_LIBRARY.groups||[];
   if(!groups.length){
-    groupsEl.innerHTML=`<div style="font-size:11px;color:var(--muted);line-height:1.7;border:1px dashed var(--border);border-radius:6px;padding:10px">
-      서버 목록이 아직 없습니다.<br>
-      GitHub 저장소에 CSV를 <b>data/league/FW_Season/</b> 같은 폴더에 넣고 manifest가 생성되면 자동으로 전체 로드됩니다.
+    groupsEl.innerHTML=`<div style="font-size:11px;color:var(--muted);line-height:1.8;border:1px dashed var(--border);border-radius:8px;padding:14px;margin-top:10px">
+      아직 서버 경기 목록이 없습니다.<br>
+      GitHub 저장소 <b style="color:var(--text)">data/league/시즌명/</b> 폴더에 CSV를 넣고 push하면 자동으로 나타납니다.
     </div>`;
+    _updateServerSummary();
     return;
   }
-  groupsEl.innerHTML=groups.map(_serverGroupCheckboxHtml).join('');
-  const total=groups.reduce((sum,g)=>sum+g.files.length,0);
-  _serverSetStatus(`서버 목록 ${groups.length}개 그룹 / ${total}경기 준비됨`, false);
+  // 카테고리별 묶기 (manifest categoryOrder 순서 존중)
+  const manifest=window.SERVER_LIBRARY.manifest||{};
+  const order=manifest.categoryOrder||[];
+  const byCat={};
+  groups.forEach(g=>{
+    const k=g.category||'etc';
+    (byCat[k]=byCat[k]||[]).push(g);
+  });
+  const cats=[...order.filter(c=>byCat[c]), ...Object.keys(byCat).filter(c=>!order.includes(c))];
+  groupsEl.innerHTML=cats.map(cat=>{
+    const list=byCat[cat];
+    const catName=list[0].categoryName||cat;
+    return `<div class="srv-cat-eyebrow">${catName}</div><div class="srv-grid">${list.map(_serverGroupCardHtml).join('')}</div>`;
+  }).join('');
+  const total=groups.reduce((s,g)=>s+g.files.length,0);
+  _serverSetStatus(`${groups.length}개 그룹 · ${total}경기 준비됨`, false);
+  _updateServerSummary();
 }
 
-function toggleServerGroup(id,on){
-  if(on)window.SERVER_LIBRARY.selected.add(id);
-  else window.SERVER_LIBRARY.selected.delete(id);
+function _updateServerSummary(){
+  const el=document.getElementById('server-selected-summary');
+  if(!el)return;
+  const groups=window.SERVER_LIBRARY.groups||[];
+  const sel=groups.filter(g=>window.SERVER_LIBRARY.selected.has(g.id));
+  const n=sel.reduce((s,g)=>s+g.files.length,0);
+  el.innerHTML=groups.length?`선택 <b>${sel.length}</b>그룹 · <b>${n}</b>경기`:'';
+}
+
+function toggleServerGroup(id){
+  if(window.SERVER_LIBRARY.selected.has(id))window.SERVER_LIBRARY.selected.delete(id);
+  else window.SERVER_LIBRARY.selected.add(id);
+  // 랜딩 패널 갱신 (있을 때)
+  if(document.getElementById('server-library-groups'))renderServerLibraryPanel();
+  // 앱 내 모달 갱신 (열려 있을 때)
+  const modalGrid=document.getElementById('server-library-groups-modal');
+  if(modalGrid){
+    const groups=window.SERVER_LIBRARY.groups||[];
+    modalGrid.innerHTML=groups.map(_serverGroupCardHtml).join('');
+  }
 }
 
 async function refreshServerLibrary(){
@@ -3366,13 +3422,13 @@ function openServerLibraryModal(){
   if(!window.SERVER_LIBRARY.groups.length)initServerLibrary(true).then(()=>openServerLibraryModal());
   const groups=window.SERVER_LIBRARY.groups||[];
   const total=groups.reduce((sum,g)=>sum+g.files.length,0);
-  const body=groups.length?groups.map(_serverGroupCheckboxHtml).join(''):`<div style="font-size:12px;color:var(--muted);line-height:1.8;border:1px dashed var(--border);border-radius:6px;padding:12px">
+  const body=groups.length?groups.map(_serverGroupCardHtml).join(''):`<div style="font-size:12px;color:var(--muted);line-height:1.8;border:1px dashed var(--border);border-radius:6px;padding:12px">
     아직 서버 목록이 없습니다. <b>data/league/시즌명/</b> 등에 CSV를 넣고 manifest를 생성한 뒤 새로고침하세요.<br>
     기존 방식대로 <b>+ 경기</b> 또는 첫 화면 파일 선택으로 CSV를 직접 추가할 수 있습니다.
   </div>`;
   openModal(`<div class="card-title" style="font-size:14px;color:var(--amber);margin-bottom:12px">☁ 서버 CSV 관리</div>
     <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:12px">${groups.length?`${groups.length}개 그룹 / ${total}경기`:'서버 목록 없음'}</div>
-    <div id="server-library-groups-modal" style="display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:14px">${body}</div>
+    <div id="server-library-groups-modal" class="srv-grid" style="margin-bottom:14px">${body}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn-primary" onclick="loadSelectedServerGroups(true)">선택 경기 다시 추가</button>
       <button class="btn-secondary" onclick="loadAllServerGroups(true)">전체 경기 다시 추가</button>
